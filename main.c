@@ -30,9 +30,9 @@
 #include "ekf.h"
 #include "dcm.h"
 /*******************************************************************************************************
-//±¾³ÌĞòµÄ¶ÁĞ´mpu9150²¿·ÖÊÇÔÚhttp://www.amobbs.com/thread-5538389-1-1.html£¬×÷Õß_spetrelµÄ»ù´¡ÉÏĞŞ¸Ä¶øÀ´
-//±¾³ÌĞòYawµÄ»¥²¹ÂË²¨³ö×ÔHom19910422@gmail.com
-//±¾³ÌĞò²ÉÓÃµÄgyro accelÈÚºÏËã·¨³ö×ÔÏÂÃæµÄ×÷ÕßMadgwick
+//æœ¬ç¨‹åºçš„è¯»å†™mpu9150éƒ¨åˆ†æ˜¯åœ¨http://www.amobbs.com/thread-5538389-1-1.htmlï¼Œä½œè€…_spetrelçš„åŸºç¡€ä¸Šä¿®æ”¹è€Œæ¥
+//æœ¬ç¨‹åºYawçš„äº’è¡¥æ»¤æ³¢å‡ºè‡ªHom19910422@gmail.com
+//æœ¬ç¨‹åºé‡‡ç”¨çš„gyro accelèåˆç®—æ³•å‡ºè‡ªä¸‹é¢çš„ä½œè€…Madgwick
 // AHRS.c
 // S.O.H. Madgwick
 // 25th August 2010
@@ -67,13 +67,13 @@
   */ 
 
 /* Private typedef -----------------------------------------------------------*/
-/*ÉñÖİIIIºÅLEDµÆÏà¹Ø¶¨Òå*/
-#define RCC_GPIO_LED                    RCC_AHB1Periph_GPIOF    /*LEDÊ¹ÓÃµÄGPIOÊ±ÖÓ*/
-//#define LEDn                            2                       /*ÉñÖÛIIIºÅLEDÊıÁ¿*/
-#define GPIO_LED                        GPIOF                   /*ÉñÖÛIIIºÅLEDµÆÊ¹ÓÃµÄGPIO×é*/
+/*ç¥å·IIIå·LEDç¯ç›¸å…³å®šä¹‰*/
+#define RCC_GPIO_LED                    RCC_AHB1Periph_GPIOF    /*LEDä½¿ç”¨çš„GPIOæ—¶é’Ÿ*/
+//#define LEDn                            2                       /*ç¥èˆŸIIIå·LEDæ•°é‡*/
+#define GPIO_LED                        GPIOF                   /*ç¥èˆŸIIIå·LEDç¯ä½¿ç”¨çš„GPIOç»„*/
 
-#define DS1_PIN                         GPIO_Pin_10              /*DS1Ê¹ÓÃµÄGPIO¹Ü½Å*/
-#define DS0_PIN                         GPIO_Pin_9              /*DS0Ê¹ÓÃµÄGPIO¹Ü½Å*/
+#define DS1_PIN                         GPIO_Pin_10              /*DS1ä½¿ç”¨çš„GPIOç®¡è„š*/
+#define DS0_PIN                         GPIO_Pin_9              /*DS0ä½¿ç”¨çš„GPIOç®¡è„š*/
 
 /* Data requested by client. */
 #define PRINT_ACCEL     (0x01)
@@ -138,8 +138,8 @@ volatile unsigned char rx_new;
  * TODO: The following matrices refer to the configuration on an internal test
  * board at Invensense. If needed, please modify the matrices to match the
  * chip-to-body matrix for your particular set up.
- * ÍÓÂİÒÇµÄĞı×ª¾ØÕó£¬ÓÃÓÚĞı×ªÍÓÂİÒÇµÄÖáÏò£¬×¢Òâ£¬ÖáÏòÒª·ûºÏÓÒÊÖ¶¨Àí£¬
- * ¼´4¸öÊÖÖ¸Ö¸ÏòxÖá²¢ÏòyÖáÎÕÈ­£¬´ËÊ±ÊúÆğµÄÄ´Ö¸·½ÏòÎªzÖá·½Ïò
+ * é™€èºä»ªçš„æ—‹è½¬çŸ©é˜µï¼Œç”¨äºæ—‹è½¬é™€èºä»ªçš„è½´å‘ï¼Œæ³¨æ„ï¼Œè½´å‘è¦ç¬¦åˆå³æ‰‹å®šç†ï¼Œ
+ * å³4ä¸ªæ‰‹æŒ‡æŒ‡å‘xè½´å¹¶å‘yè½´æ¡æ‹³ï¼Œæ­¤æ—¶ç«–èµ·çš„æ‹‡æŒ‡æ–¹å‘ä¸ºzè½´æ–¹å‘
  */
 //static signed char gyro_orientation[9] = { 1, 0, 0,
 //                                           0, 1, 0,
@@ -248,7 +248,7 @@ static void run_self_test(void)
 #define Gyro_Xout_Offset	    -70
 #define Gyro_Yout_Offset		25
 #define Gyro_Zout_Offset		-10
-//#define halfT 0.5f  //half the sample period,halfT 0.5fĞèÒª¸ù¾İ¾ßÌå×ËÌ¬¸üĞÂÖÜÆÚÀ´µ÷Õû£¬TÊÇ×ËÌ¬¸üĞÂÖÜÆÚ£¬T*½ÇËÙ¶È=Î¢·Ö½Ç¶È
+//#define halfT 0.5f  //half the sample period,halfT 0.5féœ€è¦æ ¹æ®å…·ä½“å§¿æ€æ›´æ–°å‘¨æœŸæ¥è°ƒæ•´ï¼ŒTæ˜¯å§¿æ€æ›´æ–°å‘¨æœŸï¼ŒT*è§’é€Ÿåº¦=å¾®åˆ†è§’åº¦
 
 //#define q30  1073741824.0f
 //float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
@@ -264,7 +264,7 @@ USART_InitTypeDef USART_InitStructure;
   */
 /*******************************************************************************
 * Function Name  : main
-* Description    : ¶ÁÈ¡MPU-9150's accel gyro magÊı¾İ.
+* Description    : è¯»å–MPU-9150's accel gyro magæ•°æ®.
 * Input          : None
 * Output         : None
 * Return         : None
@@ -289,12 +289,12 @@ int main(void)
 	float gyro_new_z;
 	float last_yaw;
 	float last_gyro_z;
-	// ²É¼¯ÎÂ¶ÈÇúÏßµÄÊı¾İ
+	// é‡‡é›†æ¸©åº¦æ›²çº¿çš„æ•°æ®
 	float last_temp, current_temp;
 	short count_temp = 100;
-	// ³¢ÊÔ¿¨¶ûÂüÂË²¨ÈÚºÏ¶à´«¸ĞÆ÷Êı¾İ
+	// å°è¯•å¡å°”æ›¼æ»¤æ³¢èåˆå¤šä¼ æ„Ÿå™¨æ•°æ®
 	double s, P;
-	// ÊÔÊÔ»¬¶¯¾ùÖµÂË²¨
+	// è¯•è¯•æ»‘åŠ¨å‡å€¼æ»¤æ³¢
 	float gyro_3_z[10];
 	long temp;
 //	float time_stamp = 0.0f;
@@ -333,14 +333,14 @@ int main(void)
 	usart2_init(921600);
 	I2C_Configuration();
 //	printf("hahaah\n");
-	//¿ªÆôwifiÄ£¿é£¬ÉèÖÃÎªSTAÄ£Ê½£¬Á¬½ÓÒÑÓĞµÄÈÈµã£¬
-	//È»ºóÉèÖÃÎªTCP¿Í»§¶Ë£¬¿ªÆôÍ¸´«Ä£Ê½
+	//å¼€å¯wifiæ¨¡å—ï¼Œè®¾ç½®ä¸ºSTAæ¨¡å¼ï¼Œè¿æ¥å·²æœ‰çš„çƒ­ç‚¹ï¼Œ
+	//ç„¶åè®¾ç½®ä¸ºTCPå®¢æˆ·ç«¯ï¼Œå¼€å¯é€ä¼ æ¨¡å¼
 //	atk_8266_init();
 
  
-	//Õû¸ömainµÄÁ÷³ÌÊÇ£ºÏÈ³õÊ¼»¯stm32µÄÓ²¼ş£¬¼´MPUµÄÍâÎ§Ó²¼ş£¬Èç×ÜÏßÊ±ÖÓ¡¢´®¿Ú¡¢I2CµÈ£¬ÔÙ³õÊ¼»¯
-	//MPU£¬ÔÙ¶ÔMPUÖĞµÄ¸÷¸ö´«¸ĞÆ÷½øĞĞÉèÖÃ£¬ÔÙ¾ÍÊÇµÃµ½³õÊ¼ËÄÔªÊı£¬È»ºó¾ÍÊÇ²»¶ÏµÄÑ­»·µÄ½øĞĞ×ËÌ¬½âËã¡£
-	//DMPÊÇÒ»¸öÔÚMPUºÍI2CÖ®¼ä´«ÊäÊı¾İµÄ×é¼ş
+	//æ•´ä¸ªmainçš„æµç¨‹æ˜¯ï¼šå…ˆåˆå§‹åŒ–stm32çš„ç¡¬ä»¶ï¼Œå³MPUçš„å¤–å›´ç¡¬ä»¶ï¼Œå¦‚æ€»çº¿æ—¶é’Ÿã€ä¸²å£ã€I2Cç­‰ï¼Œå†åˆå§‹åŒ–
+	//MPUï¼Œå†å¯¹MPUä¸­çš„å„ä¸ªä¼ æ„Ÿå™¨è¿›è¡Œè®¾ç½®ï¼Œå†å°±æ˜¯å¾—åˆ°åˆå§‹å››å…ƒæ•°ï¼Œç„¶åå°±æ˜¯ä¸æ–­çš„å¾ªç¯çš„è¿›è¡Œå§¿æ€è§£ç®—ã€‚
+	//DMPæ˜¯ä¸€ä¸ªåœ¨MPUå’ŒI2Cä¹‹é—´ä¼ è¾“æ•°æ®çš„ç»„ä»¶
 //	printf("gyro 3\n");
 	choose_iic_3();
 	mpu_conf();
@@ -374,7 +374,7 @@ int main(void)
 //	acc_calibrate(acc_bias_6, gyro_bias_6);
 	acc_calibrate_horizon(acc_bias_6);
 //	
-  init_quaternion(&quaternion);   //µÃµ½³õÊ¼»¯ËÄÔªÊı
+  init_quaternion(&quaternion);   //å¾—åˆ°åˆå§‹åŒ–å››å…ƒæ•°
 	start_systick(0xFFFFFF);
 //	DCM_IMU_uC_init(DEFAULT_g0, NULL, NULL, DEFAULT_q_dcm2, DEFAULT_q_gyro_bias2, DEFAULT_q_dcm2_init, DEFAULT_q_gyro_bias2_init, DEFAULT_r_acc2, DEFAULT_r_a2);
   DCM_IMU_uC_init_m(DEFAULT_g0, NULL, NULL, DEFAULT_q_dcm2, DEFAULT_q_gyro_bias2, DEFAULT_q_dcm2_init, DEFAULT_q_gyro_bias2_init, DEFAULT_r_acc2, DEFAULT_r_a2);
@@ -472,16 +472,16 @@ int main(void)
 //		
 //		printf("acc_centri: %f\n", acc_centri);
 //		acc_centri = acc_centri>0?acc_centri:0;
-//		printf("ZÖá½ÇËÙ¶È: %f\n", gyro_mat_3->data[2]);
-//		printf("ÀëĞÄÁ¦×ª»»³ÉµÄ½ÇËÙ¶È: %f\n", acc_centri);
+//		printf("Zè½´è§’é€Ÿåº¦: %f\n", gyro_mat_3->data[2]);
+//		printf("ç¦»å¿ƒåŠ›è½¬æ¢æˆçš„è§’é€Ÿåº¦: %f\n", acc_centri);
 //		gyro_mat->data[2] = 0.9*sqrtf(acc_centri/0.07)+0.1*gyro_mat->data[2];
 
 //		acc_centri = (acc_centri_2+acc_centri_4+acc_centri_5+acc_centri_6)/4.0f;
 //		if(acc_centri<0){
 //			acc_centri = 0;
 //		}
-//		printf("ZÖá½ÇËÙ¶È: %f\n", gyro_mat_3->data[2]);
-//		printf("ÀëĞÄÁ¦×ª»»³ÉµÄ½ÇËÙ¶È: %f\n", sqrtf(acc_centri/0.07));
+//		printf("Zè½´è§’é€Ÿåº¦: %f\n", gyro_mat_3->data[2]);
+//		printf("ç¦»å¿ƒåŠ›è½¬æ¢æˆçš„è§’é€Ÿåº¦: %f\n", sqrtf(acc_centri/0.07));
 //    printf("acc_centri: %f\n", acc_centri);
 //		printf("acc_centri_2: %f\n", acc_centri_2);
 //		printf("acc_centri_4: %f\n", acc_centri_4);
@@ -510,16 +510,14 @@ int main(void)
 //     if(fabs((gyro_mat_3->data[2]-last_gyro_z)/(halfT*4.0f))<1.0f && fabs(gyro_mat_3->data[2])<0.003f){
 //			 gyro_mat_3->data[2] = 0.0f;
 //		 }
-//     printf("½Ç¼ÓËÙ¶È: %f\n", );
+//     printf("è§’åŠ é€Ÿåº¦: %f\n", );
 //     if((gyro_mat_3->data[2]-last_gyro_z)/(halfT*4.0f))
-     sensor_fusion_kf(gyro_mat_3, gyro_mat_2, gyro_mat_4, gyro_mat_5, gyro_mat_6, accel_mat_2, accel_mat_4, accel_mat_5, accel_mat_6, halfT, &s, &P);
-//		 sensor_fusion(gyro_mat_3, accel_mat_2, accel_mat_4, accel_mat_5, accel_mat_6);
 		 updateIMU_m(gyro_mat_3->data, accel_mat_3->data, halfT);
 //		 printf("bbbbb\n");
-//		 printf("\r\nPitch=%f¶È    Roll=%f¶È     Yaw=%f¶È    ", getPitch()*rad_to_deg, getRoll()*rad_to_deg, getYaw()*rad_to_deg);
+//		 printf("\r\nPitch=%fåº¦    Roll=%fåº¦     Yaw=%fåº¦    ", getPitch()*rad_to_deg, getRoll()*rad_to_deg, getYaw()*rad_to_deg);
      pitch = getPitch_m();
 		 roll = getRoll_m();   
-//     printf("gyro_z_rate: %f, Yaw=%f¶È\n", gyro_mat_3->data[2]*57.3, (getYaw_m()-last_yaw)*rad_to_deg);
+//     printf("gyro_z_rate: %f, Yaw=%fåº¦\n", gyro_mat_3->data[2]*57.3, (getYaw_m()-last_yaw)*rad_to_deg);
 //		 last_yaw += gyro_mat_3->data[2]*rad_to_deg*halfT;
 		 last_yaw += s*rad_to_deg*halfT;
 //		 last_gyro_z = gyro_mat_3->data[2];
@@ -542,7 +540,7 @@ int main(void)
      printf("g6z=%f  a6y=%f  temp=%f\n", gyro_mat_6->data[2], accel_mat_6->data[1], (float)(temp)/65536.0f);
 //		 printf("g3z=%f  g2z=%f  g4z=%f  g5z=%f  g6z=%f  temp=%f\n", gyro_mat_3->data[2], gyro_mat_2->data[2], gyro_mat_4->data[2], gyro_mat_5->data[2], gyro_mat_6->data[2], (float)(temp)/65536.0f);
 //		 printf("U3:%f   U2:%f\n", gyro_mat_3->data[2], gyro_mat_2->data[2]);
-//		 printf("Pitch=%f¶È    Roll=%f¶È     Yaw=%f¶È\n", getPitch_m()*rad_to_deg, getRoll_m()*rad_to_deg, last_yaw);
+//		 printf("Pitch=%fåº¦    Roll=%fåº¦     Yaw=%fåº¦\n", getPitch_m()*rad_to_deg, getRoll_m()*rad_to_deg, last_yaw);
 //     printf("halfT: %f\n", halfT);
   }
 }
@@ -560,7 +558,7 @@ void GPIO_Configuration(void)
 
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //ÍÆÍì¸´ÓÃÊä³ö
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //æ¨æŒ½å¤ç”¨è¾“å‡º
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
   
@@ -605,10 +603,10 @@ void systickInit (uint16_t frequency)
 //{
 //  /* Place your implementation of fputc here */
 //  /* e.g. write a character to the USART */
-//  USART_SendData(EVAL_COM2, (uint8_t) ch); /*·¢ËÍÒ»¸ö×Ö·ûº¯Êı*/ 
+//  USART_SendData(EVAL_COM2, (uint8_t) ch); /*å‘é€ä¸€ä¸ªå­—ç¬¦å‡½æ•°*/ 
 
 //  /* Loop until the end of transmission */
-//  while (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_TC) == RESET)/*µÈ´ı·¢ËÍÍê³É*/
+//  while (USART_GetFlagStatus(EVAL_COM2, USART_FLAG_TC) == RESET)/*ç­‰å¾…å‘é€å®Œæˆ*/
 //  {
 //  
 //  }
