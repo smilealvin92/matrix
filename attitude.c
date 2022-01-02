@@ -2,7 +2,7 @@
 
 /*******************************************************************************
 * Function Name  : init_quaternion
-* Description    : Ëã³ö³õÊ¼»¯ËÄÔªÊıq0 q1 q2 q3.
+* Description    : ç®—å‡ºåˆå§‹åŒ–å››å…ƒæ•°q0 q1 q2 q3.
 * Input          : None
 * Output         : None
 * Return         : None
@@ -17,23 +17,23 @@ void init_quaternion(quaternion_struct *quaternion)
   float init_Yaw, init_Pitch, init_Roll;
 	float init_ax, init_ay, init_az, init_mx, init_my, init_mz;
   int i;
-//Ñ­»·20´ÎÊÇÒòÎªµÚÒ»´ÎÖ´ĞĞdmp_read_fifoÊ±£¬ÎŞ·¨½øÈëif(sensors & INV_XYZ_ACCEL)£¬ĞèÒª¶àÑ­»·¼¸´Î
-	//¼ÆËã³õÊ¼ËÄÔªÊıÊ±£¬Ã»ÓĞÓÃµ½ÍÓÂİÒÇµÄÊı¾İ
+//å¾ªç¯20æ¬¡æ˜¯å› ä¸ºç¬¬ä¸€æ¬¡æ‰§è¡Œdmp_read_fifoæ—¶ï¼Œæ— æ³•è¿›å…¥if(sensors & INV_XYZ_ACCEL)ï¼Œéœ€è¦å¤šå¾ªç¯å‡ æ¬¡
+	//è®¡ç®—åˆå§‹å››å…ƒæ•°æ—¶ï¼Œæ²¡æœ‰ç”¨åˆ°é™€èºä»ªçš„æ•°æ®
   for(i=0;i<20;i++)
   {  
 //		dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more);
-		//³¢ÊÔ²»´Ódmp¶ÁÈ¡£¬Ö±½Ó´ÓMPU6050µÄ¼Ä´æÆ÷¶ÁÈ¡
+		//å°è¯•ä¸ä»dmpè¯»å–ï¼Œç›´æ¥ä»MPU6050çš„å¯„å­˜å™¨è¯»å–
 		mpu_get_gyro_reg(gy, 0);
 		mpu_get_accel_reg(ac, 0);  
-		//Accel_4_Scale_FactorÊÇ8192¡£
-		//8192¼´2µÄ13´Î·½£¬ÊÇÒòÎª´«¸ĞÆ÷Êä³öÖµÎªshortÀàĞÍ£¬´Ó¸ºµ½ÕıÓĞ2^16´Î·½µÄ·¶Î§£¬¶ø¼ÓËÙ¶ÈµÄ²âÁ¿·¶Î§ÊÇÕı¸º4g£¬Òò´Ë2^16³ıÒÔ8µÈÓÚ8192¡£
-		init_ax=(float)(ac[0] / Accel_4_Scale_Factor);	   //µ¥Î»×ª»¯³ÉÖØÁ¦¼ÓËÙ¶ÈµÄµ¥Î»£ºg
+		//Accel_4_Scale_Factoræ˜¯8192ã€‚
+		//8192å³2çš„13æ¬¡æ–¹ï¼Œæ˜¯å› ä¸ºä¼ æ„Ÿå™¨è¾“å‡ºå€¼ä¸ºshortç±»å‹ï¼Œä»è´Ÿåˆ°æ­£æœ‰2^16æ¬¡æ–¹çš„èŒƒå›´ï¼Œè€ŒåŠ é€Ÿåº¦çš„æµ‹é‡èŒƒå›´æ˜¯æ­£è´Ÿ4gï¼Œå› æ­¤2^16é™¤ä»¥8ç­‰äº8192ã€‚
+		init_ax=(float)(ac[0] / Accel_4_Scale_Factor);	   //å•ä½è½¬åŒ–æˆé‡åŠ›åŠ é€Ÿåº¦çš„å•ä½ï¼šg
 		init_ay=(float)(ac[1] / Accel_4_Scale_Factor);
 	  init_az=(float)((ac[2]+600) / Accel_4_Scale_Factor);
 //		    printf("\r\n    ax=%f,   ay=%f,   az=%f\r\n", init_ax, init_ay, init_az);
-    mpu_set_bypass(1);                     //¿ªÆôbypass£¬±ØĞëÓĞÕâ¾ä´úÂë
-    mpu_get_compass_reg(ma, &timestamp);  //¶ÁÈ¡compassÊı¾İ
-//½øĞĞx yÖáµÄĞ£×¼£¬Î´¶ÔzÖá½øĞĞĞ£×¼£¬²Î¿¼MEMSenseµÄĞ£×¼·½·¨ 
+    mpu_set_bypass(1);                     //å¼€å¯bypassï¼Œå¿…é¡»æœ‰è¿™å¥ä»£ç 
+    mpu_get_compass_reg(ma, &timestamp);  //è¯»å–compassæ•°æ®
+//è¿›è¡Œx yè½´çš„æ ¡å‡†ï¼Œæœªå¯¹zè½´è¿›è¡Œæ ¡å‡†ï¼Œå‚è€ƒMEMSenseçš„æ ¡å‡†æ–¹æ³• 
 
 //		init_mx =(float)mag[1]-8;						
 //    init_my =(float)1.046632f*mag[0]-1.569948f;
@@ -41,70 +41,70 @@ void init_quaternion(quaternion_struct *quaternion)
 		init_mx =(float)1.046632f*ma[0]-1.569948f;						
 		init_my =(float)ma[1]-8;
 		init_mz =(float)ma[2];
-    mpu_set_bypass(0);						//¹Ø±Õbypass£¬±ØĞëÓĞÕâ¾ä´úÂë					   //¹Ø±Õbypass£¬±ØĞëÓĞÕâ¾ä´úÂë
+    mpu_set_bypass(0);						//å…³é—­bypassï¼Œå¿…é¡»æœ‰è¿™å¥ä»£ç 					   //å…³é—­bypassï¼Œå¿…é¡»æœ‰è¿™å¥ä»£ç 
 //    printf("    mx=%f,   my=%f,   mz=%f \n\r", init_mx, init_my, init_mz);
   }//end of for   
 
 #if defined ZXY
-	//ÍÓÂİÒÇyÖáÎªÇ°½ø·½Ïò£¬ÒòÎªÈÆYÖáĞı×ªµÄ½ÇÊÇroll£¬ÈÆÇ°½ø·½ÏòÖáĞı×ªµ±È»ÊÇºá¹ö½ÇÁË¡£   
-	init_Roll = -atan2(init_ax, init_az);    //Ëã³öµÄµ¥Î»ÊÇ»¡¶È£¬ÈçĞèÒª¹Û²ìÔòÓ¦³ËÒÔ57.3×ª»¯Îª½Ç¶È
+	//é™€èºä»ªyè½´ä¸ºå‰è¿›æ–¹å‘ï¼Œå› ä¸ºç»•Yè½´æ—‹è½¬çš„è§’æ˜¯rollï¼Œç»•å‰è¿›æ–¹å‘è½´æ—‹è½¬å½“ç„¶æ˜¯æ¨ªæ»šè§’äº†ã€‚   
+	init_Roll = -atan2(init_ax, init_az);    //ç®—å‡ºçš„å•ä½æ˜¯å¼§åº¦ï¼Œå¦‚éœ€è¦è§‚å¯Ÿåˆ™åº”ä¹˜ä»¥57.3è½¬åŒ–ä¸ºè§’åº¦
 //	init_Pitch = asin(init_ay/(init_ay*init_ay+init_az*init_az));              //init_Pitch = asin(ay / 1);  
 	init_Pitch = asin(init_ay);
 	init_Yaw = -atan2(init_mx*cos(init_Roll) + init_my*sin(init_Roll)*sin(init_Pitch) + init_mz*sin(init_Roll)*cos(init_Pitch),
-                   init_my*cos(init_Pitch) - init_mz*sin(init_Pitch));//ÀàËÆÓÚatan2(my, mx)£¬ÆäÖĞµÄinit_RollºÍinit_PitchÊÇ»¡¶È
+                   init_my*cos(init_Pitch) - init_mz*sin(init_Pitch));//ç±»ä¼¼äºatan2(my, mx)ï¼Œå…¶ä¸­çš„init_Rollå’Œinit_Pitchæ˜¯å¼§åº¦
 	
 	if(init_Yaw < 0){init_Yaw = init_Yaw + 2*M_PI;}
 	if(init_Yaw > 2*M_PI){init_Yaw = init_Yaw - 2*M_PI;}				            
-	//½«³õÊ¼»¯Å·À­½Ç×ª»»³É³õÊ¼»¯ËÄÔªÊı£¬×¢Òâsin(a)µÄÎ»ÖÃµÄ²»Í¬£¬¿ÉÒÔÈ·¶¨ÈÆxyzÖá×ª¶¯ÊÇPitch»¹ÊÇRoll»¹ÊÇYaw£¬°´ÕÕzyxË³ĞòĞı×ª,Qzyx=Qz*Qy*Qx£¬ÆäÖĞµÄinit_YawRollPtichÊÇ½Ç¶È        
+	//å°†åˆå§‹åŒ–æ¬§æ‹‰è§’è½¬æ¢æˆåˆå§‹åŒ–å››å…ƒæ•°ï¼Œæ³¨æ„sin(a)çš„ä½ç½®çš„ä¸åŒï¼Œå¯ä»¥ç¡®å®šç»•xyzè½´è½¬åŠ¨æ˜¯Pitchè¿˜æ˜¯Rollè¿˜æ˜¯Yawï¼ŒæŒ‰ç…§zyxé¡ºåºæ—‹è½¬,Qzyx=Qz*Qy*Qxï¼Œå…¶ä¸­çš„init_YawRollPtichæ˜¯è§’åº¦        
 	quaternion->w = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) - sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //w
-	quaternion->xi = cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw) - sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //x   ÈÆxÖáĞı×ªÊÇpitch
-	quaternion->yj = sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) + cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //y   ÈÆyÖáĞı×ªÊÇroll
-	quaternion->zk = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw) + sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw);  //z   ÈÆzÖáĞı×ªÊÇYaw
+	quaternion->xi = cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw) - sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //x   ç»•xè½´æ—‹è½¬æ˜¯pitch
+	quaternion->yj = sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) + cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //y   ç»•yè½´æ—‹è½¬æ˜¯roll
+	quaternion->zk = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw) + sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw);  //z   ç»•zè½´æ—‹è½¬æ˜¯Yaw
 #elif defined ZYX
-	//ÍÓÂİÒÇxÖáÎªÇ°½ø·½Ïò
+	//é™€èºä»ªxè½´ä¸ºå‰è¿›æ–¹å‘
   init_Roll  =  atan2(init_ay, init_az);
-	//init_axÓĞ¿ÉÄÜ´óÓÚ1£¬ÕâÑùÒ»À´£¬²»¾ÍÊÇÓĞÎÊÌâÁË£¿¹Ø×¢ÉÏÃæµÄ´òÓ¡Öµ
-	//Ã÷ÌìÕâ¸ö×öÒ»ÏÂÊµÑé
+	//init_axæœ‰å¯èƒ½å¤§äº1ï¼Œè¿™æ ·ä¸€æ¥ï¼Œä¸å°±æ˜¯æœ‰é—®é¢˜äº†ï¼Ÿå…³æ³¨ä¸Šé¢çš„æ‰“å°å€¼
+	//æ˜å¤©è¿™ä¸ªåšä¸€ä¸‹å®éªŒ
   init_Pitch = -asin(init_ax);              //init_Pitch = asin(ax / 1);      
   init_Yaw   = -atan2(init_mx*cos(init_Roll) + init_my*sin(init_Roll)*sin(init_Pitch) + init_mz*sin(init_Roll)*cos(init_Pitch),
                       init_my*cos(init_Pitch) - init_mz*sin(init_Pitch));                       //atan2(mx, my);
 	if(init_Yaw < 0){init_Yaw = init_Yaw + 2*M_PI;}
 	if(init_Yaw > 2*M_PI){init_Yaw = init_Yaw - 2*M_PI;}		
-	//ÈÆXÖáÊÇrollÊÇfai£¬ÈÆYÖáÊÇpitchÊÇtheta£¬yawÊÇpsi
+	//ç»•Xè½´æ˜¯rollæ˜¯faiï¼Œç»•Yè½´æ˜¯pitchæ˜¯thetaï¼Œyawæ˜¯psi
   quaternion->w = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) + sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //w
-  quaternion->xi = sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) - cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //x   ÈÆxÖáĞı×ªÊÇroll
-  quaternion->yj = cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw) + sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //y   ÈÆyÖáĞı×ªÊÇpitch
-  quaternion->zk = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw) - sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw);  //z   ÈÆzÖáĞı×ªÊÇYaw
+  quaternion->xi = sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*cos(0.5f*init_Yaw) - cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //x   ç»•xè½´æ—‹è½¬æ˜¯roll
+  quaternion->yj = cos(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw) + sin(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw);  //y   ç»•yè½´æ—‹è½¬æ˜¯pitch
+  quaternion->zk = cos(0.5f*init_Roll)*cos(0.5f*init_Pitch)*sin(0.5f*init_Yaw) - sin(0.5f*init_Roll)*sin(0.5f*init_Pitch)*cos(0.5f*init_Yaw);  //z   ç»•zè½´æ—‹è½¬æ˜¯Yaw
 #endif
-  printf("³õÊ¼»¯ËÄÔªÊı£ºYaw=%f, Pitch=%f, Roll=%f, q0=%f, q1=%f, q2=%f, q3=%f", 
+  printf("åˆå§‹åŒ–å››å…ƒæ•°ï¼šYaw=%f, Pitch=%f, Roll=%f, q0=%f, q1=%f, q2=%f, q3=%f", 
                init_Yaw, init_Pitch, init_Roll, quaternion->w, quaternion->xi, quaternion->yj, quaternion->zk);
 }
 /***************************************************************************************************************************************
 * Function Name  : AHRSupdate
-* Description    : accel gyro magµÄÈÚºÏËã·¨£¬Ô´×ÔS.O.H. Madgwick
+* Description    : accel gyro magçš„èåˆç®—æ³•ï¼Œæºè‡ªS.O.H. Madgwick
 * Input          : None
 * Output         : None
 * Return         : None
-// q0 q1 q2 q3ĞèÒª³õÊ¼»¯²ÅÄÜ´øÈëµ½ÏÂÃæµÄ³ÌĞòÖĞ£¬²»ÄÜÖ±½ÓÊ¹ÓÃ1 0 0 0½øĞĞÏÂÃæµÄ¼ÆËã£¬Õû¸ö²½ÖèÎª£º
-// 1.Ê×ÏÈĞ£×¼accle gyro mag£»
-// 2.µ÷ÓÃinit_quaternion£¬¸ù¾İ1ÖĞaccleµÄxyzÖáÊı¾İ£¬²¢ÀûÓÃ¹«Ê½¼ÆËã³ö³õÊ¼»¯Å·À­½Ç£¬
-//   ÆäÖĞACCEL_1G=9.81£¬µ¥Î»¶¼ÊÇm/s2£¬¶øinit_Yaw¿ÉÒÔÓÃ´ÅÁ¦¼Æ¼ÆËã³öÀ´£»
-// 3.¸ù¾İ×Ô¼ºµÄ²ÉÑùÖÜÆÚ£¬À´µ÷ÕûhalfT£¬halfT=²ÉÑùÖÜÆÚ/2£¬²ÉÑùÖÜÆÚÎªÖ´ĞĞ1´ÎAHRSupdateËùÓÃµÄÊ±¼ä£»
-// 4.½«2ÖĞ¼ÆËã³öµÄÅ·À­½Ç×ª»¯Îª³õÊ¼»¯µÄËÄÔªÊıq0 q1 q2 q3£¬ÈÚºÏ¼ÓËÙ¶È¼Æ£¬ÍÓÂİÒÇ£¬Ëã³ö¸üĞÂºóµÄÅ·À­½ÇpitchºÍroll£¬
-     È»ºóÊ¹ÓÃpitch rollºÍ´ÅÁ¦¼ÆµÄÊı¾İ½øĞĞ»¥²¹ÂË²¨ÈÚºÏµÃµ½Yaw£¬¼´¿ÉÊ¹ÓÃ£¬µ«ÊÇÅ·À­½ÇÓĞÆæµã£»
-// 5.»òÖ±½ÓÊ¹ÓÃËÄÔªÊı£»
-// 6.ÖØ¸´4£¬¼´¿É¸üĞÂ×ËÌ¬;
+// q0 q1 q2 q3éœ€è¦åˆå§‹åŒ–æ‰èƒ½å¸¦å…¥åˆ°ä¸‹é¢çš„ç¨‹åºä¸­ï¼Œä¸èƒ½ç›´æ¥ä½¿ç”¨1 0 0 0è¿›è¡Œä¸‹é¢çš„è®¡ç®—ï¼Œæ•´ä¸ªæ­¥éª¤ä¸ºï¼š
+// 1.é¦–å…ˆæ ¡å‡†accle gyro magï¼›
+// 2.è°ƒç”¨init_quaternionï¼Œæ ¹æ®1ä¸­accleçš„xyzè½´æ•°æ®ï¼Œå¹¶åˆ©ç”¨å…¬å¼è®¡ç®—å‡ºåˆå§‹åŒ–æ¬§æ‹‰è§’ï¼Œ
+//   å…¶ä¸­ACCEL_1G=9.81ï¼Œå•ä½éƒ½æ˜¯m/s2ï¼Œè€Œinit_Yawå¯ä»¥ç”¨ç£åŠ›è®¡è®¡ç®—å‡ºæ¥ï¼›
+// 3.æ ¹æ®è‡ªå·±çš„é‡‡æ ·å‘¨æœŸï¼Œæ¥è°ƒæ•´halfTï¼ŒhalfT=é‡‡æ ·å‘¨æœŸ/2ï¼Œé‡‡æ ·å‘¨æœŸä¸ºæ‰§è¡Œ1æ¬¡AHRSupdateæ‰€ç”¨çš„æ—¶é—´ï¼›
+// 4.å°†2ä¸­è®¡ç®—å‡ºçš„æ¬§æ‹‰è§’è½¬åŒ–ä¸ºåˆå§‹åŒ–çš„å››å…ƒæ•°q0 q1 q2 q3ï¼ŒèåˆåŠ é€Ÿåº¦è®¡ï¼Œé™€èºä»ªï¼Œç®—å‡ºæ›´æ–°åçš„æ¬§æ‹‰è§’pitchå’Œrollï¼Œ
+     ç„¶åä½¿ç”¨pitch rollå’Œç£åŠ›è®¡çš„æ•°æ®è¿›è¡Œäº’è¡¥æ»¤æ³¢èåˆå¾—åˆ°Yawï¼Œå³å¯ä½¿ç”¨ï¼Œä½†æ˜¯æ¬§æ‹‰è§’æœ‰å¥‡ç‚¹ï¼›
+// 5.æˆ–ç›´æ¥ä½¿ç”¨å››å…ƒæ•°ï¼›
+// 6.é‡å¤4ï¼Œå³å¯æ›´æ–°å§¿æ€;
 
-//×ÜµÄÀ´Ëµ£¬ºËĞÄÊÇÍÓÂİÒÇ£¬¼ÓËÙ¶È¼ÆÓÃÀ´ĞŞÕı²¹³¥PitchºÍRoll£¬´ÅÁ¦¼ÆÓÃÀ´ĞŞÕı²¹³¥Yaw;
-//ÒÔÏÂ³ÌĞòÖĞ£¬gx, gy, gzµ¥Î»Îª»¡¶È/s£¬ax, ay, azÎª¼ÓËÙ¶È¼ÆÊä³öµÄÔ­Ê¼16½øÖÆÊı¾İ, mx, my, mzÎª´ÅÁ¦¼ÆÊä³öµÄÔ­Ê¼16½øÖÆÊı¾İ£»
-//Ç°½ø·½Ïò£ºmpu9150µÄ¼ÓËÙ¶È¼ÆºÍÍÓÂİÒÇµÄxÖáÎªÇ°½ø·½Ïò;
-//ÒÔÏÂ³ÌĞò²ÉÓÃµÄ²Î¿¼·½ÏòÎª£ºmpu9150µÄ¼ÓËÙ¶È¼ÆºÍÍÓÂİÒÇËùÖ¸µÄxyz·½ÏòÎªÕı·½Ïò£»
+//æ€»çš„æ¥è¯´ï¼Œæ ¸å¿ƒæ˜¯é™€èºä»ªï¼ŒåŠ é€Ÿåº¦è®¡ç”¨æ¥ä¿®æ­£è¡¥å¿Pitchå’ŒRollï¼Œç£åŠ›è®¡ç”¨æ¥ä¿®æ­£è¡¥å¿Yaw;
+//ä»¥ä¸‹ç¨‹åºä¸­ï¼Œgx, gy, gzå•ä½ä¸ºå¼§åº¦/sï¼Œax, ay, azä¸ºåŠ é€Ÿåº¦è®¡è¾“å‡ºçš„åŸå§‹16è¿›åˆ¶æ•°æ®, mx, my, mzä¸ºç£åŠ›è®¡è¾“å‡ºçš„åŸå§‹16è¿›åˆ¶æ•°æ®ï¼›
+//å‰è¿›æ–¹å‘ï¼šmpu9150çš„åŠ é€Ÿåº¦è®¡å’Œé™€èºä»ªçš„xè½´ä¸ºå‰è¿›æ–¹å‘;
+//ä»¥ä¸‹ç¨‹åºé‡‡ç”¨çš„å‚è€ƒæ–¹å‘ä¸ºï¼šmpu9150çš„åŠ é€Ÿåº¦è®¡å’Œé™€èºä»ªæ‰€æŒ‡çš„xyzæ–¹å‘ä¸ºæ­£æ–¹å‘ï¼›
 
-//ÔÚÁ¿³ÌÎªÕı¸º500¶È/sµÄÇ°ÌáÏÂ£¬ÍÓÂİÒÇµÄÁéÃô¶ÈÊÇ65.5LSB/¶È/s£¬ËùÒÔ°ÑÍÓÂİÒÇÊä³öµÄÊ®Áù½øÖÆÊı¾İ³ıÒÔ65.5¾ÍÊÇ½ÇËÙ¶È£¬µ¥Î»ÊÇ¡ã/s£¬
-//È»ºóÔÙ³ıÒÔ57.3¾Í±ä³É»¡¶ÈÖÆ;(1»¡¶È=180/pi=57.3¶È)
+//åœ¨é‡ç¨‹ä¸ºæ­£è´Ÿ500åº¦/sçš„å‰æä¸‹ï¼Œé™€èºä»ªçš„çµæ•åº¦æ˜¯65.5LSB/åº¦/sï¼Œæ‰€ä»¥æŠŠé™€èºä»ªè¾“å‡ºçš„åå…­è¿›åˆ¶æ•°æ®é™¤ä»¥65.5å°±æ˜¯è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯Â°/sï¼Œ
+//ç„¶åå†é™¤ä»¥57.3å°±å˜æˆå¼§åº¦åˆ¶;(1å¼§åº¦=180/pi=57.3åº¦)
 
-//Å·À­½Çµ¥Î»Îª»¡¶Èradian£¬³ËÒÔ57.3ÒÔºó×ª»»Îª½Ç¶È,0<yaw<360, -90<pitch<+90, -180<roll<180
-//AHRSËã·¨Ä¿Ç°Ğ§¹ûÊÇ×îºÃ£¬×îÎÈ¶¨£¬µ«Ò²ÓĞÁ½¸öÈ±µã£¬2£ºÔÚ¾çÁÒ¸Ä±äYawÊ±£¬´ËÊ±Roll»á¸ú×Å³öÏÖ²»ºÏÀíµÄ¸Ä±ä£¬»ºÂı¸Ä±äYawÔòÃ»ÊÂ
+//æ¬§æ‹‰è§’å•ä½ä¸ºå¼§åº¦radianï¼Œä¹˜ä»¥57.3ä»¥åè½¬æ¢ä¸ºè§’åº¦,0<yaw<360, -90<pitch<+90, -180<roll<180
+//AHRSç®—æ³•ç›®å‰æ•ˆæœæ˜¯æœ€å¥½ï¼Œæœ€ç¨³å®šï¼Œä½†ä¹Ÿæœ‰ä¸¤ä¸ªç¼ºç‚¹ï¼Œ2ï¼šåœ¨å‰§çƒˆæ”¹å˜Yawæ—¶ï¼Œæ­¤æ—¶Rollä¼šè·Ÿç€å‡ºç°ä¸åˆç†çš„æ”¹å˜ï¼Œç¼“æ…¢æ”¹å˜Yawåˆ™æ²¡äº‹
 ***************************************************************************************************************************************/
 void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quaternion) 
 {
@@ -116,8 +116,8 @@ void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *qua
         float ex, ey, ez;
 //	      float qa, qb, qc;
 
-/*·½±ãÖ®ºóµÄ³ÌĞòÊ¹ÓÃ£¬¼õÉÙ¼ÆËãÊ±¼ä*/
-        //auxiliary variables to reduce number of repeated operations£¬
+/*æ–¹ä¾¿ä¹‹åçš„ç¨‹åºä½¿ç”¨ï¼Œå‡å°‘è®¡ç®—æ—¶é—´*/
+        //auxiliary variables to reduce number of repeated operationsï¼Œ
         float q0q0 = (quaternion->w)*(quaternion->w);
         float q0q1 = (quaternion->w)*(quaternion->xi);
         float q0q2 = (quaternion->w)*(quaternion->yj);
@@ -128,45 +128,45 @@ void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *qua
         float q2q2 = (quaternion->yj)*(quaternion->yj);   
         float q2q3 = (quaternion->yj)*(quaternion->zk);
         float q3q3 = (quaternion->zk)*(quaternion->zk);          
-/*¹éÒ»»¯²âÁ¿Öµ£¬¼ÓËÙ¶È¼ÆºÍ´ÅÁ¦¼ÆµÄµ¥Î»ÊÇÊ²Ã´¶¼ÎŞËùÎ½£¬ÒòÎªËüÃÇÔÚ´Ë±»×÷ÁË¹éÒ»»¯´¦Àí*/        
+/*å½’ä¸€åŒ–æµ‹é‡å€¼ï¼ŒåŠ é€Ÿåº¦è®¡å’Œç£åŠ›è®¡çš„å•ä½æ˜¯ä»€ä¹ˆéƒ½æ— æ‰€è°“ï¼Œå› ä¸ºå®ƒä»¬åœ¨æ­¤è¢«ä½œäº†å½’ä¸€åŒ–å¤„ç†*/        
         //normalise the measurements
         vector_normalize(accel);
 				vector_normalize(mag);        
         
-/*´Ó»úÌå×ø±êÏµµÄµç×ÓÂŞÅÌ²âµ½µÄÊ¸Á¿×ª³ÉµØÀí×ø±êÏµÏÂµÄ´Å³¡Ê¸Á¿hxyz£¨²âÁ¿Öµ£©£¬ÏÂÃæÕâ¸öÊÇ´Ó·ÉĞĞÆ÷×ø±êÏµµ½ÊÀ½ç×ø±êÏµµÄ×ª»»¹«Ê½*/
+/*ä»æœºä½“åæ ‡ç³»çš„ç”µå­ç½—ç›˜æµ‹åˆ°çš„çŸ¢é‡è½¬æˆåœ°ç†åæ ‡ç³»ä¸‹çš„ç£åœºçŸ¢é‡hxyzï¼ˆæµ‹é‡å€¼ï¼‰ï¼Œä¸‹é¢è¿™ä¸ªæ˜¯ä»é£è¡Œå™¨åæ ‡ç³»åˆ°ä¸–ç•Œåæ ‡ç³»çš„è½¬æ¢å…¬å¼*/
         //compute reference direction of flux
         hx = 2*(mag->data[0])*(0.5f - q2q2 - q3q3) + 2*(mag->data[1])*(q1q2 - q0q3) + 2*(mag->data[2])*(q1q3 + q0q2);
         hy = 2*(mag->data[0])*(q1q2 + q0q3) + 2*(mag->data[1])*(0.5f - q1q1 - q3q3) + 2*(mag->data[2])*(q2q3 - q0q1);
         hz = 2*(mag->data[0])*(q1q3 - q0q2) + 2*(mag->data[1])*(q2q3 + q0q1) + 2*(mag->data[2])*(0.5f - q1q1 - q2q2);
 
-/*¼ÆËãµØÀí×ø±êÏµÏÂµÄ´Å³¡Ê¸Á¿bxyz£¨²Î¿¼Öµ£©¡£
-ÒòÎªµØÀíµØ´ÅË®Æ½¼Ğ½Ç£¬ÎÒÃÇÒÑÖªÊÇ0¶È£¨Å×È¥´ÅÆ«½ÇµÄÒòËØ£¬¹Ì¶¨Ïò±±£©£¬ËùÒÔby=0£¬bx=Ä³Öµ
-µ«µØÀí²Î¿¼µØ´ÅÊ¸Á¿ÔÚ´¹Ö±ÃæÉÏÒ²ÓĞ·ÖÁ¿bz£¬µØÇòÉÏÃ¿¸öµØ·½¶¼ÊÇ²»Ò»ÑùµÄ¡£
-ÎÒÃÇÎŞ·¨µÃÖª£¬Ò²¾ÍÎŞ·¨ÓÃÀ´ÈÚºÏ£¨ÓĞ¸üÊÊºÏ×ö´¹Ö±·½ÏòĞŞÕıÈÚºÏµÄ¼ÓËÙ¶È¼Æ£©£¬ËùÒÔÖ±½Ó´Ó²âÁ¿ÖµhzÉÏ¸´ÖÆ¹ıÀ´£¬bz=hz¡£
-´Å³¡Ë®Æ½·ÖÁ¿£¬²Î¿¼ÖµºÍ²âÁ¿ÖµµÄ´óĞ¡Ó¦¸ÃÊÇÒ»ÖÂµÄ(bx*bx) + (by*by)) = ((hx*hx) + (hy*hy))¡£
-ÒòÎªby=0£¬ËùÒÔ¾Í¼ò»¯³É(bx*bx)  = ((hx*hx) + (hy*hy))¡£¿ÉËã³öbx¡£*/
+/*è®¡ç®—åœ°ç†åæ ‡ç³»ä¸‹çš„ç£åœºçŸ¢é‡bxyzï¼ˆå‚è€ƒå€¼ï¼‰ã€‚
+å› ä¸ºåœ°ç†åœ°ç£æ°´å¹³å¤¹è§’ï¼Œæˆ‘ä»¬å·²çŸ¥æ˜¯0åº¦ï¼ˆæŠ›å»ç£åè§’çš„å› ç´ ï¼Œå›ºå®šå‘åŒ—ï¼‰ï¼Œæ‰€ä»¥by=0ï¼Œbx=æŸå€¼
+ä½†åœ°ç†å‚è€ƒåœ°ç£çŸ¢é‡åœ¨å‚ç›´é¢ä¸Šä¹Ÿæœ‰åˆ†é‡bzï¼Œåœ°çƒä¸Šæ¯ä¸ªåœ°æ–¹éƒ½æ˜¯ä¸ä¸€æ ·çš„ã€‚
+æˆ‘ä»¬æ— æ³•å¾—çŸ¥ï¼Œä¹Ÿå°±æ— æ³•ç”¨æ¥èåˆï¼ˆæœ‰æ›´é€‚åˆåšå‚ç›´æ–¹å‘ä¿®æ­£èåˆçš„åŠ é€Ÿåº¦è®¡ï¼‰ï¼Œæ‰€ä»¥ç›´æ¥ä»æµ‹é‡å€¼hzä¸Šå¤åˆ¶è¿‡æ¥ï¼Œbz=hzã€‚
+ç£åœºæ°´å¹³åˆ†é‡ï¼Œå‚è€ƒå€¼å’Œæµ‹é‡å€¼çš„å¤§å°åº”è¯¥æ˜¯ä¸€è‡´çš„(bx*bx) + (by*by)) = ((hx*hx) + (hy*hy))ã€‚
+å› ä¸ºby=0ï¼Œæ‰€ä»¥å°±ç®€åŒ–æˆ(bx*bx)  = ((hx*hx) + (hy*hy))ã€‚å¯ç®—å‡ºbxã€‚*/
         by = sqrtf((hx*hx) + (hy*hy));
 //				bx = sqrtf((hx*hx) + (hy*hy));
         bz = hz;        
     
-        // estimated direction of gravity and flux (v and w)£¬ÏÂÃæÕâ¸öÊÇ´ÓÊÀ½ç×ø±êÏµµ½·ÉĞĞÆ÷×ø±êÏµµÄ×ª»»¹«Ê½(×ªÖÃ¾ØÕó)
+        // estimated direction of gravity and flux (v and w)ï¼Œä¸‹é¢è¿™ä¸ªæ˜¯ä»ä¸–ç•Œåæ ‡ç³»åˆ°é£è¡Œå™¨åæ ‡ç³»çš„è½¬æ¢å…¬å¼(è½¬ç½®çŸ©é˜µ)
         vx = 2*(q1q3 - q0q2);
         vy = 2*(q0q1 + q2q3);
         vz = q0q0 - q1q1 - q2q2 + q3q3;
 
-/*ÎÒÃÇ°ÑµØÀí×ø±êÏµÉÏµÄ´Å³¡Ê¸Á¿bxyz£¬×ªµ½»úÌåÉÏÀ´wxyz¡£
-ÒòÎªby=0£¬ËùÒÔËùÓĞÉæ¼°µ½byµÄ²¿·Ö¶¼±»Ê¡ÂÔÁË¡£
-ÀàËÆÉÏÃæÖØÁ¦vxyzµÄÍÆËã£¬ÒòÎªÖØÁ¦gµÄgz=1£¬gx=gy=0£¬ËùÒÔÉÏÃæÉæ¼°µ½gxgyµÄ²¿·ÖÒ²±»Ê¡ÂÔÁË
-Äã¿ÉÒÔ¿´¿´Á½¸ö¹«Ê½£ºwxyzµÄ¹«Ê½£¬°Ñbx»»³Égx£¨0£©£¬°Ñbz»»³Égz£¨1£©£¬¾Í±ä³ÉÁËvxyzµÄ¹«Ê½ÁË£¨ÆäÖĞq0q0+q1q1+q2q2+q3q3=1£©¡£*/
+/*æˆ‘ä»¬æŠŠåœ°ç†åæ ‡ç³»ä¸Šçš„ç£åœºçŸ¢é‡bxyzï¼Œè½¬åˆ°æœºä½“ä¸Šæ¥wxyzã€‚
+å› ä¸ºby=0ï¼Œæ‰€ä»¥æ‰€æœ‰æ¶‰åŠåˆ°byçš„éƒ¨åˆ†éƒ½è¢«çœç•¥äº†ã€‚
+ç±»ä¼¼ä¸Šé¢é‡åŠ›vxyzçš„æ¨ç®—ï¼Œå› ä¸ºé‡åŠ›gçš„gz=1ï¼Œgx=gy=0ï¼Œæ‰€ä»¥ä¸Šé¢æ¶‰åŠåˆ°gxgyçš„éƒ¨åˆ†ä¹Ÿè¢«çœç•¥äº†
+ä½ å¯ä»¥çœ‹çœ‹ä¸¤ä¸ªå…¬å¼ï¼šwxyzçš„å…¬å¼ï¼ŒæŠŠbxæ¢æˆgxï¼ˆ0ï¼‰ï¼ŒæŠŠbzæ¢æˆgzï¼ˆ1ï¼‰ï¼Œå°±å˜æˆäº†vxyzçš„å…¬å¼äº†ï¼ˆå…¶ä¸­q0q0+q1q1+q2q2+q3q3=1ï¼‰ã€‚*/
 //          wx = 2*bx*(0.5f - q2q2 - q3q3) + 2*bz*(q1q3 - q0q2);
 //          wy = 2*bx*(q1q2 - q0q3) + 2*bz*(q0q1 + q2q3);
 //          wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5f - q1q1 - q2q2);
-//TODO£¬´Ë´¦»¹¿ÉÒÔ×öÒ»ÏÂÊµÑé£¬¿´¿´ÊÇ²»ÊÇÕâÀï´íÁË£¬ÒòÎªÔ­×÷Õß×ø±êÖĞÈÆYÖáÊÇroll£¬¶øÎÒÏÖÔÚÊÇpitch¡£
+//TODOï¼Œæ­¤å¤„è¿˜å¯ä»¥åšä¸€ä¸‹å®éªŒï¼Œçœ‹çœ‹æ˜¯ä¸æ˜¯è¿™é‡Œé”™äº†ï¼Œå› ä¸ºåŸä½œè€…åæ ‡ä¸­ç»•Yè½´æ˜¯rollï¼Œè€Œæˆ‘ç°åœ¨æ˜¯pitchã€‚
 				wx = 2*by*(q1q2 + q0q3) + 2*bz*(q1q3 - q0q2);
 				wy = 2*by*(0.5f - q1q1 - q3q3) + 2*bz*(q0q1 + q2q3);
 				wz = 2*by*(q2q3 - q0q1) + 2*bz*(0.5f - q1q1 - q2q2);
            
-//ÏÖÔÚ°Ñ¼ÓËÙ¶ÈµÄ²âÁ¿Ê¸Á¿ºÍ²Î¿¼Ê¸Á¿×ö²æ»ı£¬°Ñ´Å³¡µÄ²âÁ¿Ê¸Á¿ºÍ²Î¿¼Ê¸Á¿Ò²×ö²æ»ı¡£¶¼ÄÃÀ´À´ĞŞÕıÍÓÂİ¡£
+//ç°åœ¨æŠŠåŠ é€Ÿåº¦çš„æµ‹é‡çŸ¢é‡å’Œå‚è€ƒçŸ¢é‡åšå‰ç§¯ï¼ŒæŠŠç£åœºçš„æµ‹é‡çŸ¢é‡å’Œå‚è€ƒçŸ¢é‡ä¹Ÿåšå‰ç§¯ã€‚éƒ½æ‹¿æ¥æ¥ä¿®æ­£é™€èºã€‚
         // error is sum of cross product between reference direction of fields and direction measured by sensors
 				
         ex = ((accel->data[1])*vz - (accel->data[2])*vy) + ((mag->data[1])*wz - (mag->data[2])*wy);
@@ -184,10 +184,10 @@ void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *qua
 //        gz = gz + Kp*ez + ezInt;
 
 				halfT=GET_NOWTIME();
-				if(ex != 0.0f && ey != 0.0f && ez != 0.0f)      //ºÜ¹Ø¼üµÄÒ»¾ä»°£¬Ô­Ëã·¨Ã»ÓĞ
+				if(ex != 0.0f && ey != 0.0f && ez != 0.0f)      //å¾ˆå…³é”®çš„ä¸€å¥è¯ï¼ŒåŸç®—æ³•æ²¡æœ‰
 				{
 					// integral error scaled integral gain
-					exInt = exInt + ex*Ki * halfT;			   //³ËÒÔ²ÉÑùÖÜÆÚµÄÒ»°ë
+					exInt = exInt + ex*Ki * halfT;			   //ä¹˜ä»¥é‡‡æ ·å‘¨æœŸçš„ä¸€åŠ
 					eyInt = eyInt + ey*Ki * halfT;
 					ezInt = ezInt + ez*Ki * halfT;
 					// adjusted gyroscope measurements
@@ -196,8 +196,8 @@ void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *qua
 					gyro->data[2] += Kp*ez + ezInt;
 				}    
 
-        // integrate quaternion rate and normalise£¬ËÄÔªÊı¸üĞÂËã·¨
-				//´Ë´¦Ã÷ÏÔÓĞ´íÎó£¬ºóÃæÓÃµÄq0¾Í²»ÊÇÖ®Ç°µÄq0ÁË£¬£¨´Ë´¦ÓĞ´ıÉÌÈ¶£©
+        // integrate quaternion rate and normaliseï¼Œå››å…ƒæ•°æ›´æ–°ç®—æ³•
+				//æ­¤å¤„æ˜æ˜¾æœ‰é”™è¯¯ï¼Œåé¢ç”¨çš„q0å°±ä¸æ˜¯ä¹‹å‰çš„q0äº†ï¼Œï¼ˆæ­¤å¤„æœ‰å¾…å•†æ¦·ï¼‰
 //				qa = q0;
 //	      qb = q1;
 //      	qc = q2;
@@ -221,64 +221,64 @@ void AHRSupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *qua
 
 void quater_to_euler(quaternion_struct *quaternion)
 {
-	///*ÓÉËÄÔªÊı¼ÆËã³öPitch  Roll  Yaw
-//³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È*/
+	///*ç”±å››å…ƒæ•°è®¡ç®—å‡ºPitch  Roll  Yaw
+//ä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦*/
 	float roll, pitch, yaw = 0.0f;
 	float q0 = (quaternion->w);
 	float q1 = (quaternion->xi);
 	float q2 = (quaternion->yj);
 	float q3 = (quaternion->zk);
 #if defined ZXY
-				//Ä³ÖÖ×ø±êÏµÏÂ£¬ÈÆXÖáÊÇpitchÊÇtheta£¬ÈÆYÖáÊÇrollÊÇfai£¬yawÊÇpsi
-			yaw   = -atan2(2*q1*q2 - 2*q0*q3, -2 * q1 * q1 - 2 * q3 * q3 + 1) * rad_to_deg;  //Æ«º½½Ç£¬ÈÆzÖá×ª¶¯
+				//æŸç§åæ ‡ç³»ä¸‹ï¼Œç»•Xè½´æ˜¯pitchæ˜¯thetaï¼Œç»•Yè½´æ˜¯rollæ˜¯faiï¼Œyawæ˜¯psi
+			yaw   = -atan2(2*q1*q2 - 2*q0*q3, -2 * q1 * q1 - 2 * q3 * q3 + 1) * rad_to_deg;  //åèˆªè§’ï¼Œç»•zè½´è½¬åŠ¨
 			if(yaw < 0 ){Yaw = Yaw + 360;}
 			if(yaw > 360 ){Yaw = Yaw - 360;}
-			pitch = asin(2*q2*q3 + 2*q0*q1) * rad_to_deg; //¸©Ñö½Ç£¬ÈÆxÖá×ª¶¯	 
-			roll  = -atan2(-2*q0*q2 + 2*q1*q3, -2 * q1 * q1 - 2 * q2* q2 + 1) * rad_to_deg; //¹ö¶¯½Ç£¬ÈÆyÖá×ª¶¯
+			pitch = asin(2*q2*q3 + 2*q0*q1) * rad_to_deg; //ä¿¯ä»°è§’ï¼Œç»•xè½´è½¬åŠ¨	 
+			roll  = -atan2(-2*q0*q2 + 2*q1*q3, -2 * q1 * q1 - 2 * q2* q2 + 1) * rad_to_deg; //æ»šåŠ¨è§’ï¼Œç»•yè½´è½¬åŠ¨
 #elif defined ZYX
-			//Ä³ÖÖ×ø±êÏµÏÂ£¬ÈÆÈÆXÖáÊÇrollÊÇtheta£¬YÖáÊÇpitchÊÇfai£¬£¬yawÊÇpsi
-			pitch = -asin(-2*q0*q2 + 2*q1*q3) * rad_to_deg; //¸©Ñö½Ç£¬ÈÆyÖá×ª¶¯	 
-			roll  = atan2(2*q2*q3 + 2*q0*q1,-2*q1*q1 - 2*q2*q2 + 1) * rad_to_deg; //¹ö¶¯½Ç£¬ÈÆxÖá×ª¶¯
+			//æŸç§åæ ‡ç³»ä¸‹ï¼Œç»•ç»•Xè½´æ˜¯rollæ˜¯thetaï¼ŒYè½´æ˜¯pitchæ˜¯faiï¼Œï¼Œyawæ˜¯psi
+			pitch = -asin(-2*q0*q2 + 2*q1*q3) * rad_to_deg; //ä¿¯ä»°è§’ï¼Œç»•yè½´è½¬åŠ¨	 
+			roll  = atan2(2*q2*q3 + 2*q0*q1,-2*q1*q1 - 2*q2*q2 + 1) * rad_to_deg; //æ»šåŠ¨è§’ï¼Œç»•xè½´è½¬åŠ¨
 			yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * (float)rad_to_deg;
 			if(yaw < 0 ){yaw = yaw + 360;}
 			if(yaw > 360 ){yaw = yaw - 360;}
 #endif
-/*×î³õµÄÓÉËÄÔªÊı¼ÆËã³öPitch  Roll  Yaw
+/*æœ€åˆçš„ç”±å››å…ƒæ•°è®¡ç®—å‡ºPitch  Roll  Yaw
 Roll=-arctan2(-2wy+2xz, 1-2xx-2yy);
 Pitch=arcsin(2wy-2zx);
 Yaw=-arctan2(-2wz+2xy, 1-2yy-2zz);
 1=q0*q0+q1*q1+q2*q2+q3*q3;
-³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È*/
-  printf("\r\nPitch = %f¶È    Roll = %f¶È     Yaw = %f¶È    ", pitch, roll, yaw);
+ä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦*/
+  printf("\r\nPitch = %fåº¦    Roll = %fåº¦     Yaw = %fåº¦    ", pitch, roll, yaw);
 }
 
 
 ///*******************************************************************************
 //* Function Name  : IMUupdate
-//* Description    : accel gyro magµÄÈÚºÏËã·¨£¬Ô´×ÔS.O.H. Madgwick.
+//* Description    : accel gyro magçš„èåˆç®—æ³•ï¼Œæºè‡ªS.O.H. Madgwick.
 //* Input          : None
 //* Output         : None
 //* Return         : None
 
-//// q0 q1 q2 q3ĞèÒª³õÊ¼»¯²ÅÄÜ´úÈëµ½ÏÂÃæµÄ³ÌĞòÖĞ£¬²»ÄÜÖ±½ÓÊ¹ÓÃ1 0 0 0½øĞĞÏÂÃæµÄ¼ÆËã£¬Õû¸ö²½ÖèÎª£º
-//// 1.Ê×ÏÈĞ£×¼accle gyro mag£»
-//// 2.µ÷ÓÃinit_quaternion£¬¸ù¾İ1ÖĞaccleµÄxyzÖáÊı¾İ£¬²¢ÀûÓÃ¹«Ê½¼ÆËã³ö³õÊ¼»¯Å·À­½Ç£¬
-////   ÆäÖĞACCEL_1G=9.81£¬µ¥Î»¶¼ÊÇm/s2£¬¶øinit_Yaw¿ÉÒÔÓÃ´ÅÁ¦¼Æ¼ÆËã³öÀ´£»
-//// 3.¸ù¾İ×Ô¼ºµÄ²ÉÑùÖÜÆÚ£¬À´µ÷ÕûhalfT£¬halfT=²ÉÑùÖÜÆÚ/2£¬²ÉÑùÖÜÆÚÎªÖ´ĞĞ1´ÎAHRSupdateËùÓÃµÄÊ±¼ä£»
-//// 4.½«2ÖĞ¼ÆËã³öµÄÅ·À­½Ç×ª»¯Îª³õÊ¼»¯µÄËÄÔªÊıq0 q1 q2 q3£¬ÈÚºÏ¼ÓËÙ¶È¼Æ£¬ÍÓÂİÒÇ£¬Ëã³ö¸üĞÂºóµÄÅ·À­½ÇpitchºÍroll£¬
-//		 È»ºóÊ¹ÓÃpitch rollºÍ´ÅÁ¦¼ÆµÄÊı¾İ½øĞĞ»¥²¹ÂË²¨ÈÚºÏµÃµ½Yaw£¬¼´¿ÉÊ¹ÓÃ£¬µ«ÊÇÅ·À­½ÇÓĞÆæµã£»
-//// 5.»òÖ±½ÓÊ¹ÓÃËÄÔªÊı£»
-//// 6.ÖØ¸´4£¬¼´¿É¸üĞÂ×ËÌ¬;
+//// q0 q1 q2 q3éœ€è¦åˆå§‹åŒ–æ‰èƒ½ä»£å…¥åˆ°ä¸‹é¢çš„ç¨‹åºä¸­ï¼Œä¸èƒ½ç›´æ¥ä½¿ç”¨1 0 0 0è¿›è¡Œä¸‹é¢çš„è®¡ç®—ï¼Œæ•´ä¸ªæ­¥éª¤ä¸ºï¼š
+//// 1.é¦–å…ˆæ ¡å‡†accle gyro magï¼›
+//// 2.è°ƒç”¨init_quaternionï¼Œæ ¹æ®1ä¸­accleçš„xyzè½´æ•°æ®ï¼Œå¹¶åˆ©ç”¨å…¬å¼è®¡ç®—å‡ºåˆå§‹åŒ–æ¬§æ‹‰è§’ï¼Œ
+////   å…¶ä¸­ACCEL_1G=9.81ï¼Œå•ä½éƒ½æ˜¯m/s2ï¼Œè€Œinit_Yawå¯ä»¥ç”¨ç£åŠ›è®¡è®¡ç®—å‡ºæ¥ï¼›
+//// 3.æ ¹æ®è‡ªå·±çš„é‡‡æ ·å‘¨æœŸï¼Œæ¥è°ƒæ•´halfTï¼ŒhalfT=é‡‡æ ·å‘¨æœŸ/2ï¼Œé‡‡æ ·å‘¨æœŸä¸ºæ‰§è¡Œ1æ¬¡AHRSupdateæ‰€ç”¨çš„æ—¶é—´ï¼›
+//// 4.å°†2ä¸­è®¡ç®—å‡ºçš„æ¬§æ‹‰è§’è½¬åŒ–ä¸ºåˆå§‹åŒ–çš„å››å…ƒæ•°q0 q1 q2 q3ï¼ŒèåˆåŠ é€Ÿåº¦è®¡ï¼Œé™€èºä»ªï¼Œç®—å‡ºæ›´æ–°åçš„æ¬§æ‹‰è§’pitchå’Œrollï¼Œ
+//		 ç„¶åä½¿ç”¨pitch rollå’Œç£åŠ›è®¡çš„æ•°æ®è¿›è¡Œäº’è¡¥æ»¤æ³¢èåˆå¾—åˆ°Yawï¼Œå³å¯ä½¿ç”¨ï¼Œä½†æ˜¯æ¬§æ‹‰è§’æœ‰å¥‡ç‚¹ï¼›
+//// 5.æˆ–ç›´æ¥ä½¿ç”¨å››å…ƒæ•°ï¼›
+//// 6.é‡å¤4ï¼Œå³å¯æ›´æ–°å§¿æ€;
 
-////×ÜµÄÀ´Ëµ£¬ºËĞÄÊÇÍÓÂİÒÇ£¬¼ÓËÙ¶È¼ÆÓÃÀ´ĞŞÕı²¹³¥PitchºÍRoll£¬´ÅÁ¦¼ÆÓÃÀ´ĞŞÕı²¹³¥Yaw;
-////ÒÔÏÂ³ÌĞòÖĞ£¬gx, gy, gzµ¥Î»Îª»¡¶È/s£¬ax, ay, azÎª¼ÓËÙ¶È¼ÆÊä³öµÄÔ­Ê¼16½øÖÆÊı¾İ, mx, my, mzÎª´ÅÁ¦¼ÆÊä³öµÄÔ­Ê¼16½øÖÆÊı¾İ£»
-////Ç°½ø·½Ïò£ºmpu9150µÄ¼ÓËÙ¶È¼ÆºÍÍÓÂİÒÇµÄxÖáÎªÇ°½ø·½Ïò;
-////ÒÔÏÂ³ÌĞò²ÉÓÃµÄ²Î¿¼·½ÏòÎª£ºmpu9150µÄ¼ÓËÙ¶È¼ÆºÍÍÓÂİÒÇËùÖ¸µÄxyz·½ÏòÎªÕı·½Ïò£»
+////æ€»çš„æ¥è¯´ï¼Œæ ¸å¿ƒæ˜¯é™€èºä»ªï¼ŒåŠ é€Ÿåº¦è®¡ç”¨æ¥ä¿®æ­£è¡¥å¿Pitchå’ŒRollï¼Œç£åŠ›è®¡ç”¨æ¥ä¿®æ­£è¡¥å¿Yaw;
+////ä»¥ä¸‹ç¨‹åºä¸­ï¼Œgx, gy, gzå•ä½ä¸ºå¼§åº¦/sï¼Œax, ay, azä¸ºåŠ é€Ÿåº¦è®¡è¾“å‡ºçš„åŸå§‹16è¿›åˆ¶æ•°æ®, mx, my, mzä¸ºç£åŠ›è®¡è¾“å‡ºçš„åŸå§‹16è¿›åˆ¶æ•°æ®ï¼›
+////å‰è¿›æ–¹å‘ï¼šmpu9150çš„åŠ é€Ÿåº¦è®¡å’Œé™€èºä»ªçš„xè½´ä¸ºå‰è¿›æ–¹å‘;
+////ä»¥ä¸‹ç¨‹åºé‡‡ç”¨çš„å‚è€ƒæ–¹å‘ä¸ºï¼šmpu9150çš„åŠ é€Ÿåº¦è®¡å’Œé™€èºä»ªæ‰€æŒ‡çš„xyzæ–¹å‘ä¸ºæ­£æ–¹å‘ï¼›
 
-////ÔÚÁ¿³ÌÎªÕı¸º500¶È/sµÄÇ°ÌáÏÂ£¬ÍÓÂİÒÇµÄÁéÃô¶ÈÊÇ65.5LSB/¶È/s£¬ËùÒÔ°ÑÍÓÂİÒÇÊä³öµÄÊ®Áù½øÖÆÊı¾İ³ıÒÔ65.5¾ÍÊÇ½ÇËÙ¶È£¬µ¥Î»ÊÇ¡ã/s£¬
-////È»ºóÔÙ³ıÒÔ57.3¾Í±ä³É»¡¶ÈÖÆ;(1»¡¶È=180/pi=57.3¶È)
+////åœ¨é‡ç¨‹ä¸ºæ­£è´Ÿ500åº¦/sçš„å‰æä¸‹ï¼Œé™€èºä»ªçš„çµæ•åº¦æ˜¯65.5LSB/åº¦/sï¼Œæ‰€ä»¥æŠŠé™€èºä»ªè¾“å‡ºçš„åå…­è¿›åˆ¶æ•°æ®é™¤ä»¥65.5å°±æ˜¯è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯Â°/sï¼Œ
+////ç„¶åå†é™¤ä»¥57.3å°±å˜æˆå¼§åº¦åˆ¶;(1å¼§åº¦=180/pi=57.3åº¦)
 
-////Å·À­½Çµ¥Î»Îª»¡¶Èradian£¬³ËÒÔ57.3ÒÔºó×ª»»Îª½Ç¶È
+////æ¬§æ‹‰è§’å•ä½ä¸ºå¼§åº¦radianï¼Œä¹˜ä»¥57.3ä»¥åè½¬æ¢ä¸ºè§’åº¦
 //*******************************************************************************/
 void IMUupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quaternion, float *yaw, float halfT) 
 {
@@ -289,7 +289,7 @@ void IMUupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quat
 //	float q0, q1, q2, q3, qa, qb, qc, qd;
 	float roll, pitch = 0.0f;
 	float exInt = 0, eyInt = 0, ezInt = 0;        // scaled integral error
-  //auxiliary variables to reduce number of repeated operations£¬
+  //auxiliary variables to reduce number of repeated operationsï¼Œ
 	float q0q0 = (quaternion->w)*(quaternion->w);
 	float q0q1 = (quaternion->w)*(quaternion->xi);
 	float q0q2 = (quaternion->w)*(quaternion->yj);
@@ -298,31 +298,31 @@ void IMUupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quat
 	float q2q2 = (quaternion->yj)*(quaternion->yj);   
 	float q2q3 = (quaternion->yj)*(quaternion->zk);
 	float q3q3 = (quaternion->zk)*(quaternion->zk); 
-  /*¹éÒ»»¯²âÁ¿Öµ£¬¼ÓËÙ¶È¼ÆºÍ´ÅÁ¦¼ÆµÄµ¥Î»ÊÇÊ²Ã´¶¼ÎŞËùÎ½£¬ÒòÎªËüÃÇÔÚ´Ë±»×÷ÁË¹éÒ»»¯´¦Àí*/        
+  /*å½’ä¸€åŒ–æµ‹é‡å€¼ï¼ŒåŠ é€Ÿåº¦è®¡å’Œç£åŠ›è®¡çš„å•ä½æ˜¯ä»€ä¹ˆéƒ½æ— æ‰€è°“ï¼Œå› ä¸ºå®ƒä»¬åœ¨æ­¤è¢«ä½œäº†å½’ä¸€åŒ–å¤„ç†*/        
   //normalise the measurements
-	//axyzÊÇ»úÌå×ø±ê²ÎÕÕÏµÉÏ£¬¼ÓËÙ¶È¼Æ²â³öÀ´µÄÖØÁ¦ÏòÁ¿£¬Ò²¾ÍÊÇÊµ¼Ê²â³öÀ´µÄÖØÁ¦
-	//ÏòÁ¿
+	//axyzæ˜¯æœºä½“åæ ‡å‚ç…§ç³»ä¸Šï¼ŒåŠ é€Ÿåº¦è®¡æµ‹å‡ºæ¥çš„é‡åŠ›å‘é‡ï¼Œä¹Ÿå°±æ˜¯å®é™…æµ‹å‡ºæ¥çš„é‡åŠ›
+	//å‘é‡
 	vector_normalize(accel);
 	
-	//vx£¬vy£¬vzÆäÊµ¾ÍÊÇÉÏÒ»´ÎµÄÅ·À­½Ç£¨ËÄÔªÊı£©µÄ»úÌå×ø±ê²Î¿¼Ïµ
-	//»»Ëã³öÀ´µÄÖØÁ¦µÄµ¥Î»ÏòÁ¿
-	//Ææ¹ÖÁË£¬Ô­°æËã·¨ÖĞ£¬¶¼ÓÃµÄÊÇhalfvx, halfvy, halfvz¡£Á½¸öËã·¨¶¼ÓĞÕâ¸öÇø±ğ
+	//vxï¼Œvyï¼Œvzå…¶å®å°±æ˜¯ä¸Šä¸€æ¬¡çš„æ¬§æ‹‰è§’ï¼ˆå››å…ƒæ•°ï¼‰çš„æœºä½“åæ ‡å‚è€ƒç³»
+	//æ¢ç®—å‡ºæ¥çš„é‡åŠ›çš„å•ä½å‘é‡
+	//å¥‡æ€ªäº†ï¼ŒåŸç‰ˆç®—æ³•ä¸­ï¼Œéƒ½ç”¨çš„æ˜¯halfvx, halfvy, halfvzã€‚ä¸¤ä¸ªç®—æ³•éƒ½æœ‰è¿™ä¸ªåŒºåˆ«
 	vx = 2*(q1q3 - q0q2);
   vy = 2*(q0q1 + q2q3);
   vz = q0q0 - q1q1 - q2q2 + q3q3;
 
       
-  //ÏÖÔÚ°Ñ¼ÓËÙ¶ÈµÄ²âÁ¿Ê¸Á¿ºÍ²Î¿¼Ê¸Á¿×ö²æ»ı£¬°Ñ´Å³¡µÄ²âÁ¿Ê¸Á¿ºÍ²Î¿¼Ê¸Á¿Ò²×ö²æ»ı¡£¶¼ÄÃÀ´À´ĞŞÕıÍÓÂİ¡£
+  //ç°åœ¨æŠŠåŠ é€Ÿåº¦çš„æµ‹é‡çŸ¢é‡å’Œå‚è€ƒçŸ¢é‡åšå‰ç§¯ï¼ŒæŠŠç£åœºçš„æµ‹é‡çŸ¢é‡å’Œå‚è€ƒçŸ¢é‡ä¹Ÿåšå‰ç§¯ã€‚éƒ½æ‹¿æ¥æ¥ä¿®æ­£é™€èºã€‚
 	// error is sum of cross product between reference direction of fields and direction measured by sensors
-	//axyzºÍvxyz¶¼ÊÇ»úÌå×ø±ê²ÎÕÕÏµÉÏµÄÖØÁ¦ÏòÁ¿£¬ÄÇËüÃÇÖ®¼äµÄÎó²î£¬¾ÍÊÇÍÓÂİ
-	//»ı·ÖºóµÄ×ËÌ¬ºÍ¼ÓËÙ¶È¼Æ²â³öÀ´µÄ×ËÌ¬Ö®¼äµÄÎó²î
-	//ÏòÁ¿¼äµÄÎó²î£¬¿ÉÒÔÓÃÏòÁ¿²æ»ıÀ´±íÊ¾£¬exyz¾ÍÊÇÁ½¸öÖØÁ¦ÏòÁ¿µÄ²æ»ı
-	// vx\vy\vz¾ÍÊÇÉÏÒ»ÂÖ¹ßĞÔ×ËÌ¬½Ç²âÁ¿½á¹û
+	//axyzå’Œvxyzéƒ½æ˜¯æœºä½“åæ ‡å‚ç…§ç³»ä¸Šçš„é‡åŠ›å‘é‡ï¼Œé‚£å®ƒä»¬ä¹‹é—´çš„è¯¯å·®ï¼Œå°±æ˜¯é™€èº
+	//ç§¯åˆ†åçš„å§¿æ€å’ŒåŠ é€Ÿåº¦è®¡æµ‹å‡ºæ¥çš„å§¿æ€ä¹‹é—´çš„è¯¯å·®
+	//å‘é‡é—´çš„è¯¯å·®ï¼Œå¯ä»¥ç”¨å‘é‡å‰ç§¯æ¥è¡¨ç¤ºï¼Œexyzå°±æ˜¯ä¸¤ä¸ªé‡åŠ›å‘é‡çš„å‰ç§¯
+	// vx\vy\vzå°±æ˜¯ä¸Šä¸€è½®æƒ¯æ€§å§¿æ€è§’æµ‹é‡ç»“æœ
 	ex = ((accel->data[1])*vz - (accel->data[2])*vy);
 	ey = ((accel->data[2])*vx - (accel->data[0])*vz);
 	ez = ((accel->data[0])*vy - (accel->data[1])*vx);
  
-  //ÒÔÏÂµÄ¼ÆËãÊÇÔÚÓÃ²æ»ıÎó²îÀ´×öPIĞŞÕıÍÓÂİÁãÆ«
+  //ä»¥ä¸‹çš„è®¡ç®—æ˜¯åœ¨ç”¨å‰ç§¯è¯¯å·®æ¥åšPIä¿®æ­£é™€èºé›¶å
 	// integral error scaled integral gain
 	exInt = exInt + ex*Ki;
 	eyInt = eyInt + ey*Ki;
@@ -338,9 +338,9 @@ void IMUupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quat
 //	start_systick(0xFFFFFF);
 //	printf("halfT:  %f", halfT);
 
-	// integrate quaternion rate and normalise£¬ËÄÔªÊı¸üĞÂËã·¨£¬Ò»½×Áú¸ñ-¿âËş·¨
-	//»¹ÊÇÒÔÍÓÂİÒÇÊı¾İÎª×¼£¬¼ÓËÙ¶È¼ÆµÄÊı¾İÊÇÓÃÀ´ĞŞÕıÍÓÂİÒÇµÄÊı¾İ
-	//ÔÚÑ­»·ÖĞ²»¶Ï¸üĞÂËÄÔªÊı£¬È»ºó¾ÍµÃ³öÁË²»¶Ï¸üĞÂµÄ
+	// integrate quaternion rate and normaliseï¼Œå››å…ƒæ•°æ›´æ–°ç®—æ³•ï¼Œä¸€é˜¶é¾™æ ¼-åº“å¡”æ³•
+	//è¿˜æ˜¯ä»¥é™€èºä»ªæ•°æ®ä¸ºå‡†ï¼ŒåŠ é€Ÿåº¦è®¡çš„æ•°æ®æ˜¯ç”¨æ¥ä¿®æ­£é™€èºä»ªçš„æ•°æ®
+	//åœ¨å¾ªç¯ä¸­ä¸æ–­æ›´æ–°å››å…ƒæ•°ï¼Œç„¶åå°±å¾—å‡ºäº†ä¸æ–­æ›´æ–°çš„
 //	qa = quaternion->w;
 //	qb = quaternion->xi;
 //	qc = quaternion->yj;
@@ -364,78 +364,78 @@ void IMUupdate(matrix *gyro, matrix *accel, matrix *mag, quaternion_struct *quat
 	
 
 //
-////0.9ºÍ0.1ÊÇĞŞÕıÏµÊı£¬ÆäÖĞ5.73=0.1*rad_to_deg£¬³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È£¬¸Ã¹«Ê½ÒâË¼ÊÇ½«´ÅÁ¦¼ÆµÄ³¤ÆÚ×¼È·¶ÈºÍ
-////ÍÓÂİÒÇµÄ¸ßÁéÃô¶È½øĞĞ»¥²¹ÂË²¨£¬¼´¶ÔÍÓÂİÒÇµÄÊı¾İ½øĞĞ¸ßÍ¨ÂË²¨£¬¶Ô´ÅÁ¦¼ÆµÄÊı¾İ½øĞĞµÍÍ¨ÂË²¨£¬ÔÙÏà¼Ó  
+////0.9å’Œ0.1æ˜¯ä¿®æ­£ç³»æ•°ï¼Œå…¶ä¸­5.73=0.1*rad_to_degï¼Œä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦ï¼Œè¯¥å…¬å¼æ„æ€æ˜¯å°†ç£åŠ›è®¡çš„é•¿æœŸå‡†ç¡®åº¦å’Œ
+////é™€èºä»ªçš„é«˜çµæ•åº¦è¿›è¡Œäº’è¡¥æ»¤æ³¢ï¼Œå³å¯¹é™€èºä»ªçš„æ•°æ®è¿›è¡Œé«˜é€šæ»¤æ³¢ï¼Œå¯¹ç£åŠ›è®¡çš„æ•°æ®è¿›è¡Œä½é€šæ»¤æ³¢ï¼Œå†ç›¸åŠ   
 
 
-/*ÓÉËÄÔªÊı¼ÆËã³öPitch  Roll  Yaw
+/*ç”±å››å…ƒæ•°è®¡ç®—å‡ºPitch  Roll  Yaw
 Roll=arctan2(2wx+2yz, 1-2xx-2yy);
 Pitch=arcsin(2wy-2zx);
 Yaw=arctan2(2wz+2xy, 1-2yy-2zz);
 1=q0*q0+q1*q1+q2*q2+q3*q3;*/
-//ÓÉËÄÔªÊı¼ÆËã³öPitch  Roll  Yaw,³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È
+//ç”±å››å…ƒæ•°è®¡ç®—å‡ºPitch  Roll  Yaw,ä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦
   q0 = quaternion->w;
   q1 = quaternion->xi;
   q2 = quaternion->yj;
   q3 = quaternion->zk;	
 #if defined ZXY
-  pitch = asin(2 * q2 * q3 + 2 * q0 * q1); //¸©Ñö½Ç£¬ÈÆxÖá×ª¶¯	 
-  roll  = -atan2(2 * q1 * q3 - 2 * q0 * q2, -2 * q1 * q1 - 2 * q2* q2 + 1); //¹ö¶¯½Ç£¬ÈÆyÖá×ª¶¯
-//³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È
-//q0ÊÇw£¬q1ÊÇx£¬q2ÊÇy£¬q3ÊÇz
+  pitch = asin(2 * q2 * q3 + 2 * q0 * q1); //ä¿¯ä»°è§’ï¼Œç»•xè½´è½¬åŠ¨	 
+  roll  = -atan2(2 * q1 * q3 - 2 * q0 * q2, -2 * q1 * q1 - 2 * q2* q2 + 1); //æ»šåŠ¨è§’ï¼Œç»•yè½´è½¬åŠ¨
+//ä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦
+//q0æ˜¯wï¼Œq1æ˜¯xï¼Œq2æ˜¯yï¼Œq3æ˜¯z
 #elif defined ZYX
-	pitch = asin(-2 * q1 * q3 + 2 * q0 * q2); //¸©Ñö½Ç£¬ÈÆyÖá×ª¶¯	 
-  roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1); //¹ö¶¯½Ç£¬ÈÆxÖá×ª¶¯
+	pitch = asin(-2 * q1 * q3 + 2 * q0 * q2); //ä¿¯ä»°è§’ï¼Œç»•yè½´è½¬åŠ¨	 
+  roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1); //æ»šåŠ¨è§’ï¼Œç»•xè½´è½¬åŠ¨
 #endif
-//ÍÓÂİÒÇÔÚ¶ÌÊ±¼äÄÚÓĞÓÃ£¬³¤Ê±¼äµÄ»ı·Ö»áÓĞÎó²î£¬¶ø¼ÓËÙ¶È¼Æ¸ÕºÃ·´¹ıÀ´£¬¶ÌÊ±¼äÄÚ²»¿É¿¿
-//£¬µ«ÊÇ³¤Ê±¼äµÄ»ı·Ö½á¹û¾Í±È½Ï×¼È·
-//0.9ºÍ0.1ÊÇĞŞÕıÏµÊı£¬ÆäÖĞ5.73=0.1*57.3£¬³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È£¬¸Ã¹«Ê½ÒâË¼ÊÇ½«´ÅÁ¦¼ÆµÄ³¤ÆÚ×¼È·¶ÈºÍ
-//ÍÓÂİÒÇµÄ¸ßÁéÃô¶È½øĞĞ»¥²¹ÂË²¨£¬¼´¶ÔÍÓÂİÒÇµÄÊı¾İ½øĞĞ¸ßÍ¨ÂË²¨£¬¶Ô´ÅÁ¦¼ÆµÄÊı¾İ½øĞĞµÍÍ¨ÂË²¨£¬ÔÙÏà¼Ó
-//¹ö¶¯½Ç£¬ÈÆyÖá×ª¶¯
+//é™€èºä»ªåœ¨çŸ­æ—¶é—´å†…æœ‰ç”¨ï¼Œé•¿æ—¶é—´çš„ç§¯åˆ†ä¼šæœ‰è¯¯å·®ï¼Œè€ŒåŠ é€Ÿåº¦è®¡åˆšå¥½åè¿‡æ¥ï¼ŒçŸ­æ—¶é—´å†…ä¸å¯é 
+//ï¼Œä½†æ˜¯é•¿æ—¶é—´çš„ç§¯åˆ†ç»“æœå°±æ¯”è¾ƒå‡†ç¡®
+//0.9å’Œ0.1æ˜¯ä¿®æ­£ç³»æ•°ï¼Œå…¶ä¸­5.73=0.1*57.3ï¼Œä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦ï¼Œè¯¥å…¬å¼æ„æ€æ˜¯å°†ç£åŠ›è®¡çš„é•¿æœŸå‡†ç¡®åº¦å’Œ
+//é™€èºä»ªçš„é«˜çµæ•åº¦è¿›è¡Œäº’è¡¥æ»¤æ³¢ï¼Œå³å¯¹é™€èºä»ªçš„æ•°æ®è¿›è¡Œé«˜é€šæ»¤æ³¢ï¼Œå¯¹ç£åŠ›è®¡çš„æ•°æ®è¿›è¡Œä½é€šæ»¤æ³¢ï¼Œå†ç›¸åŠ 
+//æ»šåŠ¨è§’ï¼Œç»•yè½´è½¬åŠ¨
 //	Yaw   = (0.9f * (Yaw + init_gz*2*halfT) + 5.73f * atan2(init_mx*cos(Roll) + init_my*sin(Roll)*sin(Pitch) + init_mz*sin(Roll)*cos(Pitch), init_my*cos(Pitch) - init_mz*sin(Pitch)));
-//¹ö¶¯½Ç£¬ÈÆxÖá×ª¶¯,ÕâÖÖÈÚºÏ°ì·¨ËäÈ»²»»áÆ¯ÒÆ£¬µ«ÊÇµ½+-170Ö®ºó£¬¾Í»á¾çÁÒ²¨¶¯£¬Ïà±ÈAHRS²îÔ¶ÁË
-//Ö®ËùÒÔºÍÉÏÃæÒ»ĞĞ´úÂëÊÇÒ»ÑùµÄ£¬ÊÇÒòÎªinit_mxºÍinit_myÒÑ¾­±ä»»¹ıÁË
+//æ»šåŠ¨è§’ï¼Œç»•xè½´è½¬åŠ¨,è¿™ç§èåˆåŠæ³•è™½ç„¶ä¸ä¼šæ¼‚ç§»ï¼Œä½†æ˜¯åˆ°+-170ä¹‹åï¼Œå°±ä¼šå‰§çƒˆæ³¢åŠ¨ï¼Œç›¸æ¯”AHRSå·®è¿œäº†
+//ä¹‹æ‰€ä»¥å’Œä¸Šé¢ä¸€è¡Œä»£ç æ˜¯ä¸€æ ·çš„ï¼Œæ˜¯å› ä¸ºinit_mxå’Œinit_myå·²ç»å˜æ¢è¿‡äº†
 	*yaw   = (0.9f * (*yaw + (gyro->data[2])*2*halfT*57.3f) + 5.73f * atan2((mag->data[0])*cos(roll) + (mag->data[1])*sin(roll)*sin(pitch) + (mag->data[2])*sin(roll)*cos(pitch), (mag->data[1])*cos(pitch) - (mag->data[2])*sin(pitch)));
 	pitch = pitch * (float)rad_to_deg;
 	roll = roll * (float)rad_to_deg;
-	//ÊÔÒ»ÏÂÁíÒ»¸ö·½°¸£¬¼´²»Ê¹ÓÃ´ÅÁ¦¼ÆµÄÊı¾İ
-	//ÊÔ¹ıÖ®ºó£¬Õâ¸öµÄYaw»áÆ¯ÒÆ¡£¡£¡£
+	//è¯•ä¸€ä¸‹å¦ä¸€ä¸ªæ–¹æ¡ˆï¼Œå³ä¸ä½¿ç”¨ç£åŠ›è®¡çš„æ•°æ®
+	//è¯•è¿‡ä¹‹åï¼Œè¿™ä¸ªçš„Yawä¼šæ¼‚ç§»ã€‚ã€‚ã€‚
 //	Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * (float)rad_to_deg;
 	
 //	printf("q0=%f, q1=%f, q2=%f, q3=%f, Yaw=%f, Pitch=%f, Roll=%f \n\r", q0, q1, q2, q3, Yaw, Pitch, Roll);
-  printf("\r\nPitch=%f¶È    Roll=%f¶È     Yaw=%f¶È    ", pitch, roll, *yaw);
+  printf("\r\nPitch=%fåº¦    Roll=%fåº¦     Yaw=%fåº¦    ", pitch, roll, *yaw);
 }
 
 void transform_data(short *gyro, short* accel, matrix *gyro_mat, matrix *accel_mat, float *bias){
-	//ÔÚÁ¿³ÌÎªÕı¸º500¶È/sµÄÇ°ÌáÏÂ£¬ÍÓÂİÒÇµÄÁéÃô¶ÈÊÇ65.5LSB/¶È/s£¬¼´Gyro_500_Scale_Factor£¬ËùÒÔ°ÑÍÓÂİÒÇÊä³öµÄÊ®Áù½øÖÆÊı¾İ³ıÒÔ65.5¾ÍÊÇ½ÇËÙ¶È£¬µ¥Î»ÊÇ¡ã/s£¬
-	 //È»ºóÔÙ³ıÒÔ57.3¾Í±ä³É»¡¶ÈÖÆ;(1»¡¶È=180/pi=57.3¶È)
-	 //¼ÆËã³õÊ¼»¯ËÄÔªÊıÊ±£¬Ã»ÓĞÓÃµ½ÍÓÂİÒÇµÄÊı¾İ
+	//åœ¨é‡ç¨‹ä¸ºæ­£è´Ÿ500åº¦/sçš„å‰æä¸‹ï¼Œé™€èºä»ªçš„çµæ•åº¦æ˜¯65.5LSB/åº¦/sï¼Œå³Gyro_500_Scale_Factorï¼Œæ‰€ä»¥æŠŠé™€èºä»ªè¾“å‡ºçš„åå…­è¿›åˆ¶æ•°æ®é™¤ä»¥65.5å°±æ˜¯è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯Â°/sï¼Œ
+	 //ç„¶åå†é™¤ä»¥57.3å°±å˜æˆå¼§åº¦åˆ¶;(1å¼§åº¦=180/pi=57.3åº¦)
+	 //è®¡ç®—åˆå§‹åŒ–å››å…ƒæ•°æ—¶ï¼Œæ²¡æœ‰ç”¨åˆ°é™€èºä»ªçš„æ•°æ®
 	
-		gyro_mat->data[0] = (float)(((float)gyro[0]-bias[0]) / (Gyro_500_rad_Scale_Factor));	  	     //µ¥Î»×ª»¯³É£º»¡¶È/s
+		gyro_mat->data[0] = (float)(((float)gyro[0]-bias[0]) / (Gyro_500_rad_Scale_Factor));	  	     //å•ä½è½¬åŒ–æˆï¼šå¼§åº¦/s
 		gyro_mat->data[1] = (float)(((float)gyro[1]-bias[1]) / (Gyro_500_rad_Scale_Factor));
 		gyro_mat->data[2] = (float)(((float)gyro[2]-bias[2]) / (Gyro_500_rad_Scale_Factor));
-			 //´Ë´¦ÕâĞ©¼ÓËÙ¶È¼ÆµÄÊı¾İÃ»ÓĞÏñ¼ÆËã³õÊ¼»¯ËÄÔªÊıµÄÊ±ºòÄÇÑù´¦Àí£¬ÒòÎª²»ĞèÒª£¬ºóÃæ¶¼¹éÒ»»¯ÁË
+			 //æ­¤å¤„è¿™äº›åŠ é€Ÿåº¦è®¡çš„æ•°æ®æ²¡æœ‰åƒè®¡ç®—åˆå§‹åŒ–å››å…ƒæ•°çš„æ—¶å€™é‚£æ ·å¤„ç†ï¼Œå› ä¸ºä¸éœ€è¦ï¼Œåé¢éƒ½å½’ä¸€åŒ–äº†
 //	 	 accel_mat->data[0] = (float)accel[0];	  
 //		 accel_mat->data[1] = (float)accel[1];
 //		 accel_mat->data[2] = (float)accel[2];
-		accel_mat->data[0] = (float)(accel[0]/Accel_4_M_Scale_Factor); //µ¥Î»×ª»¯³ÉÖØÁ¦¼ÓËÙ¶ÈµÄµ¥Î»£ºm/s2
+		accel_mat->data[0] = (float)(accel[0]/Accel_4_M_Scale_Factor); //å•ä½è½¬åŒ–æˆé‡åŠ›åŠ é€Ÿåº¦çš„å•ä½ï¼šm/s2
 		accel_mat->data[1] = (float)(accel[1]/Accel_4_M_Scale_Factor);
 		accel_mat->data[2] = (float)((accel[2])/Accel_4_M_Scale_Factor);
 }
 
 void transform_data_better(short *gyro, short* accel, matrix *gyro_mat, matrix *accel_mat, float *gyro_bias, float *acc_bias){
-	//ÔÚÁ¿³ÌÎªÕı¸º500¶È/sµÄÇ°ÌáÏÂ£¬ÍÓÂİÒÇµÄÁéÃô¶ÈÊÇ65.5LSB/¶È/s£¬¼´Gyro_500_Scale_Factor£¬ËùÒÔ°ÑÍÓÂİÒÇÊä³öµÄÊ®Áù½øÖÆÊı¾İ³ıÒÔ65.5¾ÍÊÇ½ÇËÙ¶È£¬µ¥Î»ÊÇ¡ã/s£¬
-	 //È»ºóÔÙ³ıÒÔ57.3¾Í±ä³É»¡¶ÈÖÆ;(1»¡¶È=180/pi=57.3¶È)
-	 //¼ÆËã³õÊ¼»¯ËÄÔªÊıÊ±£¬Ã»ÓĞÓÃµ½ÍÓÂİÒÇµÄÊı¾İ
+	//åœ¨é‡ç¨‹ä¸ºæ­£è´Ÿ500åº¦/sçš„å‰æä¸‹ï¼Œé™€èºä»ªçš„çµæ•åº¦æ˜¯65.5LSB/åº¦/sï¼Œå³Gyro_500_Scale_Factorï¼Œæ‰€ä»¥æŠŠé™€èºä»ªè¾“å‡ºçš„åå…­è¿›åˆ¶æ•°æ®é™¤ä»¥65.5å°±æ˜¯è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯Â°/sï¼Œ
+	 //ç„¶åå†é™¤ä»¥57.3å°±å˜æˆå¼§åº¦åˆ¶;(1å¼§åº¦=180/pi=57.3åº¦)
+	 //è®¡ç®—åˆå§‹åŒ–å››å…ƒæ•°æ—¶ï¼Œæ²¡æœ‰ç”¨åˆ°é™€èºä»ªçš„æ•°æ®
 	
-		gyro_mat->data[0] = (((float)gyro[0]-gyro_bias[0]) / (Gyro_500_rad_Scale_Factor));	  	     //µ¥Î»×ª»¯³É£º»¡¶È/s
+		gyro_mat->data[0] = (((float)gyro[0]-gyro_bias[0]) / (Gyro_500_rad_Scale_Factor));	  	     //å•ä½è½¬åŒ–æˆï¼šå¼§åº¦/s
 		gyro_mat->data[1] = (((float)gyro[1]-gyro_bias[1]) / (Gyro_500_rad_Scale_Factor));
 		gyro_mat->data[2] = (((float)gyro[2]-gyro_bias[2]) / (Gyro_500_rad_Scale_Factor));
-			 //´Ë´¦ÕâĞ©¼ÓËÙ¶È¼ÆµÄÊı¾İÃ»ÓĞÏñ¼ÆËã³õÊ¼»¯ËÄÔªÊıµÄÊ±ºòÄÇÑù´¦Àí£¬ÒòÎª²»ĞèÒª£¬ºóÃæ¶¼¹éÒ»»¯ÁË
+			 //æ­¤å¤„è¿™äº›åŠ é€Ÿåº¦è®¡çš„æ•°æ®æ²¡æœ‰åƒè®¡ç®—åˆå§‹åŒ–å››å…ƒæ•°çš„æ—¶å€™é‚£æ ·å¤„ç†ï¼Œå› ä¸ºä¸éœ€è¦ï¼Œåé¢éƒ½å½’ä¸€åŒ–äº†
 //	 	 accel_mat->data[0] = (float)accel[0];	  
 //		 accel_mat->data[1] = (float)accel[1];
 //		 accel_mat->data[2] = (float)accel[2];
-		accel_mat->data[0] = (((float)accel[0]-acc_bias[0])/Accel_4_M_Scale_Factor); //µ¥Î»×ª»¯³ÉÖØÁ¦¼ÓËÙ¶ÈµÄµ¥Î»£ºm/s2
+		accel_mat->data[0] = (((float)accel[0]-acc_bias[0])/Accel_4_M_Scale_Factor); //å•ä½è½¬åŒ–æˆé‡åŠ›åŠ é€Ÿåº¦çš„å•ä½ï¼šm/s2
 		accel_mat->data[1] = (((float)accel[1]-acc_bias[1])/Accel_4_M_Scale_Factor);
 		accel_mat->data[2] = (((float)accel[2]-acc_bias[2])/Accel_4_M_Scale_Factor);
 }
@@ -497,7 +497,7 @@ void gyro_calibrate(float *gyro_bias){
 	}
 }
 
-// È·¶¨Ã¿¸ö¼ÓËÙ¶È¼ÆµÄ³£ÖµÆ«ÒÆ¹ı³Ì£ºÏÈÊ¹ÓÃU3µÄÊı¾İ½øĞĞ×ËÌ¬½âËã£¬Ëã³ö×ËÌ¬ºó£¬¾Í¿ÉÒÔÍ¨¹ı½âÖØÁ¦·ÖÁ¿·½³Ì£¬½â³öÃ¿¸öÖáÉÏµÄ³£ÖµÆ«ÒÆ
+// ç¡®å®šæ¯ä¸ªåŠ é€Ÿåº¦è®¡çš„å¸¸å€¼åç§»è¿‡ç¨‹ï¼šå…ˆä½¿ç”¨U3çš„æ•°æ®è¿›è¡Œå§¿æ€è§£ç®—ï¼Œç®—å‡ºå§¿æ€åï¼Œå°±å¯ä»¥é€šè¿‡è§£é‡åŠ›åˆ†é‡æ–¹ç¨‹ï¼Œè§£å‡ºæ¯ä¸ªè½´ä¸Šçš„å¸¸å€¼åç§»
 void acc_calibrate(float *acc_bias, float *gyro_bias){
 	short gyro[3], accel[3];
 	int accel_zero[3];
@@ -509,7 +509,7 @@ void acc_calibrate(float *acc_bias, float *gyro_bias){
 	short i = 0;
 	matrix *gyro_mat = matrix_init(3, 1);
 	matrix *accel_mat = matrix_init(3, 1);
-	// ÏÈ¶ÁÈ¡Êı¾İ£¬»º³åÒ»ÏÂ£¬ÒÔÌá¸ßÊı¾İµÄÆ½ÎÈĞÔ
+	// å…ˆè¯»å–æ•°æ®ï¼Œç¼“å†²ä¸€ä¸‹ï¼Œä»¥æé«˜æ•°æ®çš„å¹³ç¨³æ€§
 	for(j=0;j<200;j++){
 		mpu_get_gyro_reg(gyro, 0);
 		mpu_get_accel_reg(accel, 0);
@@ -531,7 +531,7 @@ void acc_calibrate(float *acc_bias, float *gyro_bias){
 	    updateIMU_m(gyro_mat->data, accel_mat->data, halfT*4.0f);
 	    pitch = getPitch_m();
 	    roll = getRoll_m();
-			// »¯³ÉADCshortÀàĞÍµÄÊı
+			// åŒ–æˆADCshortç±»å‹çš„æ•°
 	    ax_g = (short)((-1)*sin(pitch)*DEFAULT_g0*Accel_4_M_Scale_Factor);
 	    ay_g = (short)(cos(pitch)*sin(roll)*DEFAULT_g0*Accel_4_M_Scale_Factor);
 			az_g = (short)(cos(pitch)*cos(roll)*DEFAULT_g0*Accel_4_M_Scale_Factor);
@@ -579,7 +579,7 @@ void acc_calibrate(float *acc_bias, float *gyro_bias){
 		printf("acc_bias: %f\n",acc_bias[j]);
 //		printf("gyro_bias small: %f\n", gyro_bias[j]);
 	}
-//	printf("Pitch=%f¶È    Roll=%f¶È     Yaw=%f¶È\n", getPitch_m()*rad_to_deg, getRoll_m()*rad_to_deg, getYaw_m()*rad_to_deg);
+//	printf("Pitch=%fåº¦    Roll=%fåº¦     Yaw=%fåº¦\n", getPitch_m()*rad_to_deg, getRoll_m()*rad_to_deg, getYaw_m()*rad_to_deg);
 }
 
 void acc_calibrate_horizon(float *acc_bias){
@@ -641,14 +641,14 @@ void acc_calibrate_horizon(float *acc_bias){
 }
 
 void gyro_fusion(matrix *gyro_3, matrix *gyro_2, matrix *gyro_4, matrix *gyro_5, matrix *gyro_6){
-	// U3ÈÆXÖáµÄ½ÇËÙ¶ÈºÍU4ÈÆXÖáµÄ½ÇËÙ¶È¡¢U6ÈÆXÖáµÄ½ÇËÙ¶ÈÓ¦¸ÃÊÇÒ»ÑùµÄ£¬Í¬ÑùµÄ£¬U3ÈÆYÖáµÄ½ÇËÙ¶ÈºÍU2ÈÆYÖáµÄ½ÇËÙ¶È¡¢U5ÈÆYÖáµÄ½ÇËÙ¶ÈÊÇÒ»ÑùµÄ
-	// ÏÖ½«Æä½øĞĞÆ½¾ù´¦Àí£¬ÒÔ¼õÉÙÔëÉù
+	// U3ç»•Xè½´çš„è§’é€Ÿåº¦å’ŒU4ç»•Xè½´çš„è§’é€Ÿåº¦ã€U6ç»•Xè½´çš„è§’é€Ÿåº¦åº”è¯¥æ˜¯ä¸€æ ·çš„ï¼ŒåŒæ ·çš„ï¼ŒU3ç»•Yè½´çš„è§’é€Ÿåº¦å’ŒU2ç»•Yè½´çš„è§’é€Ÿåº¦ã€U5ç»•Yè½´çš„è§’é€Ÿåº¦æ˜¯ä¸€æ ·çš„
+	// ç°å°†å…¶è¿›è¡Œå¹³å‡å¤„ç†ï¼Œä»¥å‡å°‘å™ªå£°
 	gyro_3->data[0] = (gyro_4->data[0]+gyro_6->data[0]+gyro_3->data[0])/3.0f;
 	gyro_3->data[1] = (gyro_2->data[1]+gyro_5->data[1]+gyro_3->data[1])/3.0f;
 }
-// U3ºÍU4ºÍU6µÄrollÊÇÒ»ÑùµÄ£¬U3ºÍU2ºÍU5µÄpitchÊÇÒ»ÑùµÄ£¬
-// ÏÂÃæÓÃÖÜÎ§ËÄ¸ö¼ÓËÙ¶È¼ÆµÄÊı¾İÈ¥ÈÚºÏÖĞ¼äµÄÍÓÂİÒÇzÖá½ÇËÙ¶ÈÊı¾İ£¬ËÄ¸ö¼ÓËÙ¶È¼ÆµÄÖá²»Ò»Ñù£¬Ö÷ÒªÊÇÀûÓÃÀëĞÄÁ¦
-		// ¶ÔÓÚu2£¬ÊÇyÖáÕı·½ÏòµÄÊı¾İ£¬¶ÔÓÚu4£¬ÊÇxÖáÕı·½ÏòµÄÊı¾İ£¬¶ÔÓÚu5£¬ÊÇyÖá¸º·½ÏòµÄÊı¾İ£¬¶ÔÓÚu6£¬ÊÇxÖá¸º·½ÏòµÄÊı¾İ
+// U3å’ŒU4å’ŒU6çš„rollæ˜¯ä¸€æ ·çš„ï¼ŒU3å’ŒU2å’ŒU5çš„pitchæ˜¯ä¸€æ ·çš„ï¼Œ
+// ä¸‹é¢ç”¨å‘¨å›´å››ä¸ªåŠ é€Ÿåº¦è®¡çš„æ•°æ®å»èåˆä¸­é—´çš„é™€èºä»ªzè½´è§’é€Ÿåº¦æ•°æ®ï¼Œå››ä¸ªåŠ é€Ÿåº¦è®¡çš„è½´ä¸ä¸€æ ·ï¼Œä¸»è¦æ˜¯åˆ©ç”¨ç¦»å¿ƒåŠ›
+		// å¯¹äºu2ï¼Œæ˜¯yè½´æ­£æ–¹å‘çš„æ•°æ®ï¼Œå¯¹äºu4ï¼Œæ˜¯xè½´æ­£æ–¹å‘çš„æ•°æ®ï¼Œå¯¹äºu5ï¼Œæ˜¯yè½´è´Ÿæ–¹å‘çš„æ•°æ®ï¼Œå¯¹äºu6ï¼Œæ˜¯xè½´è´Ÿæ–¹å‘çš„æ•°æ®
 void get_centri_pitch(matrix *acc, float pitch, float *acc_centri){
 	//		ax_g = (-1)*sin(pitch)*DEFAULT_g0;
 //		ay_g = cos(pitch)*sin(roll)*DEFAULT_g0;
@@ -663,7 +663,7 @@ void get_centri_pitch(matrix *acc, float pitch, float *acc_centri){
 	*acc_centri = acc->data[1]-DEFAULT_g0*cos(pitch)*sin(roll);
 }
 
-// U3ºÍU4ºÍU6µÄrollÊÇÒ»ÑùµÄ£¬U3ºÍU2ºÍU5µÄpitchÊÇÒ»ÑùµÄ£¬
+// U3å’ŒU4å’ŒU6çš„rollæ˜¯ä¸€æ ·çš„ï¼ŒU3å’ŒU2å’ŒU5çš„pitchæ˜¯ä¸€æ ·çš„ï¼Œ
 void get_centri_roll(matrix *acc, float roll, float *acc_centri){
 	float az_no_bias;
 	float cospitch;
@@ -677,88 +677,8 @@ void get_centri_roll(matrix *acc, float roll, float *acc_centri){
 	*acc_centri = acc->data[0]+DEFAULT_g0*sin(pitch);
 }
 
-void sensor_fusion(matrix *gyro, matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6){
-	float acc_centri_2, acc_centri_4, acc_centri_5, acc_centri_6, acc_centri;
-//	if(fabs(gyro->data[2])<0.003f){
-//			gyro->data[2]=0.0f;
-//	}
-	acc_centri_2 = (-1)*acc_2->data[1];
-	acc_centri_4 = (-1)*acc_4->data[0];
-	acc_centri_5 = acc_5->data[1];
-	acc_centri_6 = acc_6->data[0];
-	acc_centri = (acc_centri_2+acc_centri_4+acc_centri_5+acc_centri_6)/4.0f;
-//	if(acc_centri<0){
-//		gyro->data[2] = (-1)*0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-//	else{
-//		gyro->data[2] = 0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-//	printf("acc_centri: %f\n", acc_centri/0.07);
-	
-}
 
-void sensor_fusion_kf(matrix *gyro_3, matrix *gyro_2, matrix *gyro_4, matrix *gyro_5, matrix *gyro_6, 
-	matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6, float time, double *s, double *P){
-	double acc_angle_2, acc_angle_4, acc_angle_5, acc_angle_6, acc_angle;
-	double kalman_gain;
-	double gyro_mean;
-//	if(fabs(gyro->data[2])<0.003f){
-//			gyro->data[2]=0.0f;
-//	}
-//		printf("P: %f\n", *P);
-	acc_angle_2 = (-1)*acc_2->data[0];
-	acc_angle_4 = acc_4->data[1];
-	acc_angle_5 = acc_5->data[0];
-	acc_angle_6 = (-1)*acc_6->data[1];
-  acc_angle = (acc_angle_2+acc_angle_4+acc_angle_5+acc_angle_6)/(4.0*0.07);
-	gyro_mean = (gyro_3->data[2]+gyro_2->data[2]+gyro_4->data[2]+gyro_5->data[2]+gyro_6->data[2])/5.0;
-//	gyro_mean = (gyro_3->data[2]+gyro_2->data[2]+gyro_4->data[2]+gyro_6->data[2])/4.0;	
-	*s = *s + acc_angle*time;
-	*P = *P + ((double)time)*time*0.0005/(4.0*0.0049);
-//		*P = *P + ((double)time)*time*(0.0004377+0.0004504+0.0004979+0.0003862)/(16.0*0.0049);
-//		printf("P-: %f\n", *P);
-	kalman_gain = *P/(*P+0.000003/5.0);
-//	kalman_gain = *P/(*P+(0.0000004736+0.0000004065+0.0000005359+0.000002815+0.0000006885)/25.0);
-//		kalman_gain = *P/(*P+(0.0000004736+0.0000004065+0.0000005359+0.0000006885)/16.0);
-//		printf("kalman_gain: %f\n", kalman_gain);
-		
-//	kalman_gain = *P/(*P+0.0000007f/4.0f);
-	*s = *s + kalman_gain*(gyro_mean-(*s));
-	*P = *P - kalman_gain*(*P);
-	
-//	if(acc_centri<0){
-//		gyro->data[2] = (-1)*0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-//	else{
-//		gyro->data[2] = 0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-//	printf("acc_centri: %f\n", acc_centri/0.07);
-}
-
-void sensor_fusion_with_angle(matrix *gyro, matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6, float pitch, float roll){
-	float acc_centri_2, acc_centri_4, acc_centri_5, acc_centri_6, acc_centri;
-	if(fabs(gyro->data[2])<0.003f){
-			gyro->data[2]=0.0f;
-	}
-	get_centri_pitch(acc_2, pitch, &acc_centri_2);
-	get_centri_roll(acc_4, roll, &acc_centri_4);
-	get_centri_pitch(acc_5, pitch, &acc_centri_5);
-	get_centri_roll(acc_6, roll, &acc_centri_6);
-	acc_centri_2 = (-1)*acc_centri_2;
-	acc_centri_4 = (-1)*acc_centri_4;
-//	acc_centri_5 = acc_5->data[1];
-//	acc_centri_6 = acc_6->data[0];
-	acc_centri = (acc_centri_2+acc_centri_4+acc_centri_5+acc_centri_6)/4.0f;
-//	if(acc_centri<0){
-//		gyro->data[2] = (-1)*0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-//	else{
-//		gyro->data[2] = 0.9f*sqrtf(fabs(acc_centri)/0.07)+0.1*gyro->data[2];
-//	}
-	printf("acc_centri: %f\n", acc_centri/0.07);
-	
-}
-////´ËËã·¨ºÍÉÏÃæÄÇ¸öËã·¨´ó¸ÅÓĞÈı¸öµØ·½ÊÇ²»Ò»ÑùµÄ
+////æ­¤ç®—æ³•å’Œä¸Šé¢é‚£ä¸ªç®—æ³•å¤§æ¦‚æœ‰ä¸‰ä¸ªåœ°æ–¹æ˜¯ä¸ä¸€æ ·çš„
 //void MahonyAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
 //	float recipNorm;
 //    float q0q0, q0q1, q0q2, q0q3, q1q1, q1q2, q1q3, q2q2, q2q3, q3q3;  
@@ -855,12 +775,12 @@ void sensor_fusion_with_angle(matrix *gyro, matrix *acc_2, matrix *acc_4, matrix
 //	q1 *= recipNorm;
 //	q2 *= recipNorm;
 //	q3 *= recipNorm;
-//	//Ä³ÖÖ×ø±êÏµÏÂ£¬ÈÆYÖáÊÇpitchÊÇtheta£¬ÈÆXÖáÊÇrollÊÇfai£¬yawÊÇpsi
-//	Pitch = asin(-2*q1*q3 + 2*q0*q2) * rad_to_deg; //¸©Ñö½Ç£¬ÈÆyÖá×ª¶¯	 
-//	Roll  = atan2(2*q2*q3 + 2*q0*q1,-2*q1*q1 - 2*q2*q2 + 1) * rad_to_deg; //¹ö¶¯½Ç£¬ÈÆxÖá×ª¶¯
+//	//æŸç§åæ ‡ç³»ä¸‹ï¼Œç»•Yè½´æ˜¯pitchæ˜¯thetaï¼Œç»•Xè½´æ˜¯rollæ˜¯faiï¼Œyawæ˜¯psi
+//	Pitch = asin(-2*q1*q3 + 2*q0*q2) * rad_to_deg; //ä¿¯ä»°è§’ï¼Œç»•yè½´è½¬åŠ¨	 
+//	Roll  = atan2(2*q2*q3 + 2*q0*q1,-2*q1*q1 - 2*q2*q2 + 1) * rad_to_deg; //æ»šåŠ¨è§’ï¼Œç»•xè½´è½¬åŠ¨
 //	Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * (float)rad_to_deg;
 //	if(Yaw < 0 ){Yaw = Yaw + 360;}
 //	if(Yaw > 360 ){Yaw = Yaw - 360;}
-//	//³ËÒÔ57.3ÊÇÎªÁË½«»¡¶È×ª»¯Îª½Ç¶È*/
-//  printf("\r\nPitch = %f¶È    Roll = %f¶È     Yaw = %f¶È    ", Pitch, Roll, Yaw);
+//	//ä¹˜ä»¥57.3æ˜¯ä¸ºäº†å°†å¼§åº¦è½¬åŒ–ä¸ºè§’åº¦*/
+//  printf("\r\nPitch = %fåº¦    Roll = %fåº¦     Yaw = %fåº¦    ", Pitch, Roll, Yaw);
 //}
