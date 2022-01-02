@@ -13,7 +13,7 @@
 #include "mpu6050_3.h"
 #include "mpu6050_4.h"
 #include "mpu6050_5.h"
-//¶¨Òå²»Í¬²âÁ¿·¶Î§µÄ¿Ì¶ÈÒò×Ó
+//å®šä¹‰ä¸åŒæµ‹é‡èŒƒå›´çš„åˆ»åº¦å› å­
 #define Gyro_250_Scale_Factor   131.0f
 #define Gyro_500_Scale_Factor   65.536f
 #define Gyro_1000_Scale_Factor  32.8f
@@ -27,13 +27,13 @@
 #define Accel_4_M_Scale_Factor 837.345272f
 #define rad_to_deg 57.295780f
 
-// ÏÂÃæÕâ¸öÊÇÔ­×÷ÕßµÄÆ«ÒÆ
+// ä¸‹é¢è¿™ä¸ªæ˜¯åŸä½œè€…çš„åç§»
 #define Accel_Zout_Offset		600
 #define Gyro_Xout_Offset	    -70
 #define Gyro_Yout_Offset		25
 #define Gyro_Zout_Offset		-10
 
-// ÏÂÃæÊÇÎÒ×Ô¼ºÍ¨¹ıÇó¾ùÖµµÃµ½µÄÆ«ÒÆ
+// ä¸‹é¢æ˜¯æˆ‘è‡ªå·±é€šè¿‡æ±‚å‡å€¼å¾—åˆ°çš„åç§»
 #define Gyro_Xout_Offset_u3	    193
 #define Gyro_Yout_Offset_u3		-45
 #define Gyro_Zout_Offset_u3		-17
@@ -57,10 +57,10 @@
 #define Kp 2.5f     //proportional gain governs rate of convergence to accelerometer/magnetometer
 #define Ki 0.001f   //integral gain governs rate of convergence of gyroscope biases
 
-// ÀûÓÃºê¶¨ÒåÀ´Ñ¡ÔñĞı×ªË³Ğò
-// µ±Ğı×ªË³ĞòÊÇZXYÊ±£¬´ËÊ±ÈÆXÖáĞı×ªµÄÊÇpitch£¬ÈÆyÖáĞı×ªµÄÊÇroll¡£×ÜÖ®£¬×îºóÒ»¸öĞı×ªµÄ½Ç¶È£¬Ëü¾ÍÊÇroll
+// åˆ©ç”¨å®å®šä¹‰æ¥é€‰æ‹©æ—‹è½¬é¡ºåº
+// å½“æ—‹è½¬é¡ºåºæ˜¯ZXYæ—¶ï¼Œæ­¤æ—¶ç»•Xè½´æ—‹è½¬çš„æ˜¯pitchï¼Œç»•yè½´æ—‹è½¬çš„æ˜¯rollã€‚æ€»ä¹‹ï¼Œæœ€åä¸€ä¸ªæ—‹è½¬çš„è§’åº¦ï¼Œå®ƒå°±æ˜¯roll
 //#define ZXY
-// µ±Ğı×ªË³ĞòÊÇZYXÊ±(ÕâÖÖĞı×ªË³Ğò±È½Ï³£ÓÃ)£¬´ËÊ±ÈÆXÖáĞı×ªµÄÊÇroll£¬ÈÆyÖáĞı×ªµÄÊÇpitch¡£×ÜÖ®£¬×îºóÒ»¸öĞı×ªµÄ½Ç¶È£¬Ëü¾ÍÊÇroll
+// å½“æ—‹è½¬é¡ºåºæ˜¯ZYXæ—¶(è¿™ç§æ—‹è½¬é¡ºåºæ¯”è¾ƒå¸¸ç”¨)ï¼Œæ­¤æ—¶ç»•Xè½´æ—‹è½¬çš„æ˜¯rollï¼Œç»•yè½´æ—‹è½¬çš„æ˜¯pitchã€‚æ€»ä¹‹ï¼Œæœ€åä¸€ä¸ªæ—‹è½¬çš„è§’åº¦ï¼Œå®ƒå°±æ˜¯roll
 #define ZYX
 
 void init_quaternion(quaternion_struct *quaternion);
@@ -77,8 +77,4 @@ void gyro_fusion(matrix *gyro_3, matrix *gyro_2, matrix *gyro_4, matrix *gyro_5,
 void acc_fusion(matrix *gyro_3, matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6);
 void get_centri_pitch(matrix *acc, float pitch, float *acc_centri);
 void get_centri_roll(matrix *acc, float roll, float *acc_centri);
-void sensor_fusion(matrix *gyro, matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6);
-void sensor_fusion_kf(matrix *gyro_3, matrix *gyro_2, matrix *gyro_4, matrix *gyro_5, matrix *gyro_6, matrix *acc_2, matrix *acc_4, 
-	matrix *acc_5, matrix *acc_6, float time, double *s, double *P);
-void sensor_fusion_with_angle(matrix *gyro, matrix *acc_2, matrix *acc_4, matrix *acc_5, matrix *acc_6, float pitch, float roll);
 #endif //__ATTITUDE_H
